@@ -2,7 +2,7 @@ Your Daily Commute: Metro or Drive?
 
 An annual comparison of which is a better decision for both your mental and fiscal health.
 
-Enter in your starting point and your destination and we will calculate how much it would cost in time and money to take the Metro versus driving your car.
+Enter in your starting point, your destination, and your departure time and we will calculate how much it would cost in time and money to take the Metro versus driving your car.
 
 Team Members: Wandi Liu, Kelena Mori, Elise Rothberg
 
