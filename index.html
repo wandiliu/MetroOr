@@ -2,36 +2,31 @@
 <html>
 <head>
   <title>Metro Or Drive</title>
-
   <link rel="stylesheet" type="text/css" href="style.css">
-  <script type="text/javascript" src="app4.js"></script>
-  <script type="text/javascript" src="stuff2.js"></script>
-  <!-- This will be removed-->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC49l21opGjGaAvpfhvInZgL3ORHV63pxo&libraries=places&callback=initMap">
-      </script>
+    <script type="text/javascript" src="app.js"></script>
 
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC49l21opGjGaAvpfhvInZgL3ORHV63pxo&libraries=places&callback=initMap"
+        async defer></script>
 </head>
+
 <body>
 
-<div id="map"></div>
-<div id="output"></div>
-<div id="showMap"></div>
-
-<div id="theForm">
-  <form name="getInfo" method="post" onsubmit="return getUserInfo();">
-    <input type="text" name="home" id="homeAddress" placeholder="Home Address" />
-    <input type="text" name="leaveHome" id="leaveHome" placeholder="leaveHome" />
-    <input type="radio" name="toWorkAM" value="toHomeAM"> AM
-    <input type="radio" name="toWorkPM" value="toHomePM"> PM
-    <input type="text" name="work" id="workAddress" placeholder="Work Address" />
-    <input type="text" name="leaveWork" id="leaveWork" placeholder="leaveWork" />
-    <input type="radio" name="toHomeAM" value="toWorkAM"> AM
-    <input type="radio" name="toHomePM" value="toHomePM"> PM
-    <input type="submit" name="Submit" value="Submit" />     
-  </form>
+<div>
+  <input id="origin-input" class="controls" type="text" 
+    placeholder="Enter your home address">
+  <label>Leave home at: </label>
+  <input type="time" name="fromHome" id="leave-home" placeholder="leaveHome" />
+  <input id="destination-input" class="controls" type="text" 
+    placeholder="Enter your work address">
+  <label>Leave work at: </label>
+  <input type="time" name="fromWork" id="leave-work" placeholder="leaveWork" />
 </div>
-  
+
+<div id="map"></div>
+
+<div id="theInput"></div>
+<div id="theInfo"></div>
+
 
 </body>
 </html>
