@@ -1,35 +1,109 @@
-// var moment = require('moment');
 
-// set home and work addresses as global variables 
-//this will not be hardcoded
-var homeAddress = '3645 Westwood Blvd, Los Angeles, CA 90034';
-var workAddress = '200 N Spring St, Los Angeles, CA 90012';
-
-//setting global variables
-var timeToWork;
-var timeToHome;
-var distanceAndTime;
-var theTime;
-var monetaryCost;
-var totalTravelTime;
+var latLongAddresses = [];
+var travelingAt = [];
 var annualDriveTime = [];
 var annualTransitTime = [];
 var latLongAddresses = [];
 var timeTravelArray = [];
 var transitTravelArray = [];
 var times = [];
-var homeLLAddress;
-var workLLAddress;
-// var toWorkAM;
-// var toHomeAM;
-var inAM;
 var travelingAt = [];
-// var userInput = [];
+var userInput = [];
+var theInput = [];
+var theInfo = [];
 
-//function to use google maps API
 function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    mapTypeControl: false,
+    center: {lat:34.0522,lng:-118.2437},
+    zoom: 10
+  });
 
-  //function to use geocoder to change street addresses to latitude and longitude
+  new AutocompleteDirectionsHandler(map);
+
+};
+
+function AutocompleteDirectionsHandler(map) {
+
+  this.map = map;
+  this.originPlaceId = null;
+  this.destinationPlaceId = null;
+  this.travelMode = 'DRIVING';
+  //set up to get user data from form
+  var originInput = document.getElementById('origin-input');
+  var destinationInput = document.getElementById('destination-input');
+  var leaveHome = document.getElementById('leave-home');
+  var leaveWork = document.getElementById('leave-work');
+
+  //get all user input
+  function userInput (homeAddy,workAddy,departHome,departWork) {
+    
+    home = homeAddy;
+    fromHome = departHome;
+    work = workAddy;
+    fromWork = departWork;
+  }
+
+  userInput (originInput, destinationInput, leaveHome, leaveWork);
+
+  this.directionsService = new google.maps.DirectionsService;
+  this.directionsDisplay = new google.maps.DirectionsRenderer;
+  this.directionsDisplay.setMap(map);
+
+  var originAutocomplete = new google.maps.places.Autocomplete(
+      originInput, {placeIdOnly: true});
+  var destinationAutocomplete = new google.maps.places.Autocomplete(
+      destinationInput, {placeIdOnly: true});
+
+  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
+}
+
+AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
+  var me = this;
+  autocomplete.bindTo('bounds', this.map);
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
+    if (!place.place_id) {
+      window.alert("Please select an option from the dropdown list.");
+      return;
+    }
+    if (mode === 'ORIG') {
+      me.originPlaceId = place.place_id;
+    } else {
+      me.destinationPlaceId = place.place_id;
+    }
+    me.route();
+  });
+};
+
+AutocompleteDirectionsHandler.prototype.route = function() {
+  
+  if (!this.originPlaceId || !this.destinationPlaceId) {
+    return;
+  }
+  var me = this;
+
+  this.directionsService.route({
+    origin: {'placeId': this.originPlaceId},
+    destination: {'placeId': this.destinationPlaceId},
+    travelMode: this.travelMode
+  }, function(response, status) {
+    if (status === 'OK') {
+      me.directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
+
+  homeAddress = home.value;
+  workAddress = work.value;
+  leaveHome = fromHome.value;
+  leaveWork = fromWork.value;
+
   function LLaddress(address) {
     var geocoder = new google.maps.Geocoder();
 
@@ -46,9 +120,6 @@ function initMap() {
       if (latLongAddresses.length == 4){
         homeLLAddress = "{lat:" + latLongAddresses[0] + ",lng:" + latLongAddresses[1] + "}";
         workLLAddress = "{lat:" + latLongAddresses[2] + ",lng:" + latLongAddresses[3] + "}";
-      
-        // console.log("lat/lon home: " + homeLLAddress + "time to work: " + timeToWork);
-        // console.log("lat/lon work: " + workLLAddress + "time home: " + timeToHome);
       }
     });
   }
@@ -56,16 +127,14 @@ function initMap() {
   LLaddress(homeAddress);
   LLaddress(workAddress);
 
-  //Set today as the date object
-  var today = new Date();
-
-  //change the date to next Wednesday
-  function setTimes(hours, minutes, amOrPm) {
-  var nextWednesday = new Date();
-  nextWednesday.setDate(nextWednesday.getDate() + (9-nextWednesday.getDay())%7+1);
-  //Apply users departure time data
-  nextWednesday.setHours(hours, minutes);
-  travelingAt.push(nextWednesday);
+  function setTimes(time) {
+    hours = time.slice(0,2);
+    minutes = time.slice(3,5);
+    var nextWednesday = new Date();
+    nextWednesday.setDate(nextWednesday.getDate() + (9-nextWednesday.getDay())%7+1);
+    //Apply users departure time data
+    nextWednesday.setHours(hours, minutes);
+    travelingAt.push(nextWednesday);
 
     if (travelingAt.length == 2) {
 
@@ -76,41 +145,35 @@ function initMap() {
       // timeToWork2 = new Date(nextWednesday.setDate(nextWednesday.getDate() + (16-nextWednesday.getDay())%7+1));
       // timeToWork3 = new Date(nextWednesday.setDate(nextWednesday.getDate() + (23-nextWednesday.getDay())%7+1));
     }
-
-  //set up times to display as XX:XX AM or XX:XX PM
-    Date.prototype.timesOnly = function() {
-      var hours = this.getHours() %12 || 12;
-      hours = hours.toString();
-      var minutes = this.getMinutes().toString();
-      return (hours[1]?hours:"0"+hours[0]%12) + ':' + (minutes[1]?minutes:"0"+minutes[0]);
-    };
-      
-    var timeOfDay = nextWednesday.timesOnly()
-    //determine AM or PM
-    if (amOrPm == true) {
-      timeOfDay = timeOfDay + ' AM';
-    }
-    else {
-      timeOfDay = timeOfDay + ' PM';
+    function timeChange (hrs) {
+      if (hrs[0] == 1) {
+        newHrs = hrs.slice(0,2);
+        newHrs = parseInt(newHrs);
+        newHrs = "0" + (newHrs - 12);
+        min = hrs.slice(2,5);
+        hrs = (newHrs + min) + " PM";
+      } else {
+        hrs = hrs + " AM";
+      }
+      times.push(hrs);
     }
 
-    times.push(timeOfDay);
+    timeChange(leaveHome);
+    timeChange(leaveWork); 
 
     if (times.length == 2) {
-      console.log("Home: " + homeAddress + "    Work: " + workAddress);
-      console.log("Leaving for work at: " + times[0]);
-      console.log("Leaving for home at: " + times[1]);
+      var x = "<br> Home: " + homeAddress.slice(0, -15) + "&nbsp; &nbsp; &nbsp; Work: " + workAddress.slice(0, -15);
+      theInput.push(x);
+      console.log(x);
+      var y = "<br>Leaving for work at: " + times[0] +  "&nbsp; &nbsp; Leaving for home at: " + times[1] + "<br>";
+      theInput.push(y);
+      console.log(y);
     }
   }
+  
+  setTimes(leaveHome);
+  setTimes(leaveWork);
 
-  //this will not be hardcoded
-  var hrs = 8;
-  var mnts = 0;
-  var am = true;
-  setTimes(hrs, mnts, am);
-  setTimes(17, 30, false);
-
-  // use Google Maps API to calculate distances and travel times
   function modes(theMode, time) {
     //straight from the docs
     var service = new google.maps.DistanceMatrixService;
@@ -123,6 +186,7 @@ function initMap() {
         departureTime: time
       },
       drivingOptions: {
+        //best guess or pessimistic?? maybe average them??
         trafficModel: 'pessimistic',
         departureTime: time
       },
@@ -209,16 +273,27 @@ function initMap() {
           }
         }
       }
-      if (annualTransitTime.length == 2 || annualDriveTime.length == 2 && totalTravelTime != 'undefined') {
-        // console.log(theAddresses + ":")
-        console.log(theMode + ": " + distanceAndTime)
-        console.log("         Yearly cost: $" + monetaryCost + ", Total commute: " + totalTravelTime);
+      if ((totalTravelTime && totalTravelTime.length) && annualTransitTime.length == 2 || annualDriveTime.length == 2) {
+        var a = ("<br>" + theMode + ": " + distanceAndTime);
+        theInfo.push(a);
+        console.log(a);
+        var b = ("<br> &nbsp; &nbsp; &nbsp; Yearly cost: $" + monetaryCost + ", Total commute: " + totalTravelTime);
+        theInfo.push(b);
+        console.log(b);
+        console.log("** + " + typeof transitTravelArray[1]);
+
       }
+      document.getElementById('theInput').innerHTML = theInput;
+      document.getElementById('theInfo').innerHTML = theInfo;
+
     });
   }
+ 
   modes('DRIVING', timeToWork)
   modes('TRANSIT', timeToWork)
   modes('DRIVING', timeToHome)
   modes('TRANSIT', timeToHome)
-}
+
+};
+
 
