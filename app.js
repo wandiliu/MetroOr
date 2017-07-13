@@ -11,8 +11,13 @@ var travelingAt = [];
 var userInput = [];
 var theInput = [];
 var theInfo = [];
+var home;
+var work;
+var leaveHome;
+var leaveWork;
 
 function initMap() {
+  
   var map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,
     center: {lat:34.0522,lng:-118.2437},
@@ -26,40 +31,36 @@ function initMap() {
 function AutocompleteDirectionsHandler(map) {
 
   this.map = map;
-  this.originPlaceId = null;
+  this.homePlaceId = null;
   this.destinationPlaceId = null;
   this.travelMode = 'DRIVING';
-  //set up to get user data from form
-  var originInput = document.getElementById('origin-input');
-  var destinationInput = document.getElementById('destination-input');
-  var leaveHome = document.getElementById('leave-home');
-  var leaveWork = document.getElementById('leave-work');
-
-  //get all user input
-  function userInput (homeAddy,workAddy,departHome,departWork) {
-    
-    home = homeAddy;
-    fromHome = departHome;
-    work = workAddy;
-    fromWork = departWork;
-  }
-
-  userInput (originInput, destinationInput, leaveHome, leaveWork);
+  //get user input
+  home = document.getElementById('home-input');
+  work = document.getElementById('work-input');
+  leaveHome = document.getElementById('leave-home');
+  leaveWork = document.getElementById('leave-work');
 
   this.directionsService = new google.maps.DirectionsService;
-  this.directionsDisplay = new google.maps.DirectionsRenderer;
+  this.directionsDisplay = new google.maps.DirectionsRenderer({
+    //customize render so there's no line drawn and the icon is different
+                        polylineOptions : {strokeColor:'rgba(0,0,0,0)'},
+                          markerOptions: {
+                            icon: 'red.png'
+                          }
+                        }),
+
   this.directionsDisplay.setMap(map);
 
-  var originAutocomplete = new google.maps.places.Autocomplete(
-      originInput, {placeIdOnly: true});
-  var destinationAutocomplete = new google.maps.places.Autocomplete(
-      destinationInput, {placeIdOnly: true});
+  var homeAutocomplete = new google.maps.places.Autocomplete(
+      home, {placeIdOnly: true});
+  var workAutocomplete = new google.maps.places.Autocomplete(
+      work, {placeIdOnly: true});
 
-  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
-  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+  this.setupPlaceChangedListener(homeAutocomplete, 'ORIG');
+  this.setupPlaceChangedListener(workAutocomplete, 'DEST');
 
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(home);
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(work);
 }
 
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
@@ -72,24 +73,23 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
       return;
     }
     if (mode === 'ORIG') {
-      me.originPlaceId = place.place_id;
+      me.homePlaceId = place.place_id;
     } else {
-      me.destinationPlaceId = place.place_id;
+      me.workPlaceId = place.place_id;
     }
     me.route();
   });
 };
 
 AutocompleteDirectionsHandler.prototype.route = function() {
-  
-  if (!this.originPlaceId || !this.destinationPlaceId) {
+  if (!this.homePlaceId || !this.workPlaceId) {
     return;
   }
   var me = this;
 
   this.directionsService.route({
-    origin: {'placeId': this.originPlaceId},
-    destination: {'placeId': this.destinationPlaceId},
+    origin: {'placeId': this.homePlaceId},
+    destination: {'placeId': this.workPlaceId},
     travelMode: this.travelMode
   }, function(response, status) {
     if (status === 'OK') {
@@ -98,53 +98,68 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       window.alert('Directions request failed due to ' + status);
     }
   });
-
+  //get values from user input
   homeAddress = home.value;
   workAddress = work.value;
-  leaveHome = fromHome.value;
-  leaveWork = fromWork.value;
+  leaveHome = leaveHome.value;
+  leaveWork = leaveWork.value;
 
-  function LLaddress(address) {
-    var geocoder = new google.maps.Geocoder();
-
-    geocoder.geocode( { 'address': address}, function(results, status) {
-
-      if (status == google.maps.GeocoderStatus.OK) {
-          var latitude = results[0].geometry.location.lat();
-          var longitude = results[0].geometry.location.lng();
-      }
-      //push into array
-      latLongAddresses.push(latitude);
-      latLongAddresses.push(longitude);
-      //if all four coordinates are in the array, create latitude and longitude key-object pairs for home and work addresses
-      if (latLongAddresses.length == 4){
-        homeLLAddress = "{lat:" + latLongAddresses[0] + ",lng:" + latLongAddresses[1] + "}";
-        workLLAddress = "{lat:" + latLongAddresses[2] + ",lng:" + latLongAddresses[3] + "}";
-      }
-    });
+  //set default times of day
+  if (leaveHome.length < 3) {
+    leaveHome = "08:00";
   }
-  //call the function with the street addresses
-  LLaddress(homeAddress);
-  LLaddress(workAddress);
+  if (leaveWork.length < 3) {
+    leaveWork = "18:00";
+  };
+
+//Uncomment this if latitude and longitude pairs are needed for use with another mapping or charting program
+
+  // function LLaddress(address) {
+  //   var geocoder = new google.maps.Geocoder();
+
+  //   geocoder.geocode( { 'address': address}, function(results, status) {
+
+  //     if (status == google.maps.GeocoderStatus.OK) {
+  //         var latitude = results[0].geometry.location.lat();
+  //         var longitude = results[0].geometry.location.lng();
+  //     }
+  //     //push into array
+  //     latLongAddresses.push(latitude);
+  //     latLongAddresses.push(longitude);
+  //     //if all four coordinates are in the array, create latitude and longitude key-object pairs for home and work addresses
+  //     if (latLongAddresses.length == 4){
+  //       homeLLAddress = "{lat:" + latLongAddresses[0] + ",lng:" + latLongAddresses[1] + "}";
+  //       workLLAddress = "{lat:" + latLongAddresses[2] + ",lng:" + latLongAddresses[3] + "}";
+  //     }
+  //  console.log("lat/lon addys in: " + latLongAddresses);
+  //   });
+  // }
+  // //call the function with the street addresses
+  // LLaddress(homeAddress);
+  // LLaddress(workAddress);
+
+  //  console.log("lat/lon addys: " + latLongAddresses);
 
   function setTimes(time) {
+    //divide time input into hours and minutes
     hours = time.slice(0,2);
     minutes = time.slice(3,5);
+    //make date the following Wednesday from today
     var nextWednesday = new Date();
     nextWednesday.setDate(nextWednesday.getDate() + (9-nextWednesday.getDay())%7+1);
-    //Apply users departure time data
+    //Apply users departure time data to date
     nextWednesday.setHours(hours, minutes);
     travelingAt.push(nextWednesday);
 
     if (travelingAt.length == 2) {
-
       timeToWork = travelingAt[0];
       timeToHome = travelingAt[1];
 
-        //change the date to the following Wednesday and the one after that to add then average- ??
+      //change the date to the following Wednesday and the one after that to add then average- ??
       // timeToWork2 = new Date(nextWednesday.setDate(nextWednesday.getDate() + (16-nextWednesday.getDay())%7+1));
       // timeToWork3 = new Date(nextWednesday.setDate(nextWednesday.getDate() + (23-nextWednesday.getDay())%7+1));
     }
+    //adjust time data for 12 hour clock and add AM or PM
     function timeChange (hrs) {
       if (hrs[0] == 1) {
         newHrs = hrs.slice(0,2);
@@ -157,20 +172,19 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       }
       times.push(hrs);
     }
-
     timeChange(leaveHome);
     timeChange(leaveWork); 
 
+    //set up values for display
     if (times.length == 2) {
       var x = "<br> Home: " + homeAddress.slice(0, -15) + "&nbsp; &nbsp; &nbsp; Work: " + workAddress.slice(0, -15);
       theInput.push(x);
       console.log(x);
-      var y = "<br>Leaving for work at: " + times[0] +  "&nbsp; &nbsp; Leaving for home at: " + times[1] + "<br>";
+      var y = "<br>Leaving for work at: " + times[0] +  "&nbsp; &nbsp; Leaving for home at: " + times[1] + "<p>*Transit riders may need to pay an additional fee if transferring to non-Metro municipal carriers.</p>";
       theInput.push(y);
       console.log(y);
     }
   }
-  
   setTimes(leaveHome);
   setTimes(leaveWork);
 
@@ -200,9 +214,10 @@ AutocompleteDirectionsHandler.prototype.route = function() {
         } else {
         var originList = response.originAddresses;
         var destinationList = response.destinationAddresses;
-        
+
         for (var i = 0; i < originList.length; i++) {
           var results = response.rows[i].elements;
+
           //function to put time in hour and minute format
           function convertTime (input) {
             return parseInt(input/60) + ' hour(s) and ' + input%60 + ' minute(s)';
@@ -243,6 +258,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
               //Put distance and times into one variable
               var distanceAndTime = results[j].distance.text + ' each way. Home to work in ' +  timeToWork + "; work to home in " + timeToHome;                
             }  
+// 3335 South Figueroa Street, Los Angeles, CA&nbsp; &nbsp; &nbsp; Work: 11677 Pacific Coast Highway, Malibu, CA
 
             else if (theMode === "TRANSIT") {
               var theDistance = results[j].duration.text
@@ -258,6 +274,10 @@ AutocompleteDirectionsHandler.prototype.route = function() {
               var transitTimeOneWay = ((Number(results[j].duration.value) * 251) / 60).toFixed(0);
               //push commute times to a variable
               annualTransitTime.push(annualTransitOneWay);
+               if (!theDistance) {
+                monetaryCost = "N/A";
+                totalTravelTime = "N/A";
+              }
               //Once both times are in the array, add commute times for total transit time
               if (annualTransitTime.length == 2) {
                 totalAnnualCommuteTime = annualTransitTime[0] + annualTransitTime[1];  
@@ -268,27 +288,25 @@ AutocompleteDirectionsHandler.prototype.route = function() {
                 var timeToWork = convertTime(transitTravelArray[0]);
                 var timeToHome = convertTime(transitTravelArray[1]);
               }
-            var distanceAndTime = results[j].distance.text + ' each way. Home to work in ' +  timeToWork + "; work to home in " + timeToHome;
+              var distanceAndTime = results[j].distance.text + ' each way. Home to work in ' +  timeToWork + "; work to home in " + timeToHome;
             }
           }
         }
       }
-      if ((totalTravelTime && totalTravelTime.length) && annualTransitTime.length == 2 || annualDriveTime.length == 2) {
+      //set up data for display
+      if ((totalTravelTime && timeToHome) && (annualTransitTime.length == 2 || annualDriveTime.length == 2)) {
         var a = ("<br>" + theMode + ": " + distanceAndTime);
         theInfo.push(a);
         console.log(a);
         var b = ("<br> &nbsp; &nbsp; &nbsp; Yearly cost: $" + monetaryCost + ", Total commute: " + totalTravelTime);
         theInfo.push(b);
         console.log(b);
-        console.log("** + " + typeof transitTravelArray[1]);
-
       }
       document.getElementById('theInput').innerHTML = theInput;
       document.getElementById('theInfo').innerHTML = theInfo;
 
     });
-  }
- 
+  }   
   modes('DRIVING', timeToWork)
   modes('TRANSIT', timeToWork)
   modes('DRIVING', timeToHome)

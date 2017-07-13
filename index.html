@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Metro Or Drive</title>
+  <title>Metro Or Drive?</title>
   <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="app.js"></script>
-
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC49l21opGjGaAvpfhvInZgL3ORHV63pxo&libraries=places&callback=initMap"
         async defer></script>
 </head>
 
 <body>
 
+<h1>Metro Or Drive?</h1>
+<h4>Compare Driving Times and Cost</h4>
+
 <div>
-  <input id="origin-input" class="controls" type="text" 
+  <input id="home-input" class="controls" type="text" 
     placeholder="Enter your home address">
   <label>Leave home at: </label>
-  <input type="time" name="fromHome" id="leave-home" placeholder="leaveHome" />
-  <input id="destination-input" class="controls" type="text" 
+  <input type="time" name="fromHome" id="leave-home"/>
+  <input id="work-input" class="controls" type="text" 
     placeholder="Enter your work address">
   <label>Leave work at: </label>
-  <input type="time" name="fromWork" id="leave-work" placeholder="leaveWork" />
+  <input type="time" name="fromWork" id="leave-work"/>
+  <label>(default is 8:00 AM - 05:00 PM)</label>
+  <br>
+  
 </div>
 
-<div id="map"></div>
-
 <div id="theInput"></div>
-<div id="theInfo"></div>
+<div id="theInfo">
+</div>
+<br>
+
+<div id="map"></div>
 
 
 </body>
