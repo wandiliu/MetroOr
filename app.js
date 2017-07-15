@@ -1,20 +1,21 @@
-
-var latLongAddresses = [];
 var travelingAt = [];
 var annualDriveTime = [];
 var annualTransitTime = [];
-var latLongAddresses = [];
 var timeTravelArray = [];
 var transitTravelArray = [];
-var times = [];
-var travelingAt = [];
-var userInput = [];
 var theInput = [];
 var theInfo = [];
+var notMetro = [];
+var times = [];
 var home;
 var work;
 var leaveHome;
 var leaveWork;
+var latLongHome;
+var latLongWork;
+var ride = [];
+var drive = [];
+var monetaryCost;
 
 function initMap() {
   
@@ -112,34 +113,6 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     leaveWork = "18:00";
   };
 
-//Uncomment this if latitude and longitude pairs are needed for use with another mapping or charting program
-
-  // function LLaddress(address) {
-  //   var geocoder = new google.maps.Geocoder();
-
-  //   geocoder.geocode( { 'address': address}, function(results, status) {
-
-  //     if (status == google.maps.GeocoderStatus.OK) {
-  //         var latitude = results[0].geometry.location.lat();
-  //         var longitude = results[0].geometry.location.lng();
-  //     }
-  //     //push into array
-  //     latLongAddresses.push(latitude);
-  //     latLongAddresses.push(longitude);
-  //     //if all four coordinates are in the array, create latitude and longitude key-object pairs for home and work addresses
-  //     if (latLongAddresses.length == 4){
-  //       homeLLAddress = "{lat:" + latLongAddresses[0] + ",lng:" + latLongAddresses[1] + "}";
-  //       workLLAddress = "{lat:" + latLongAddresses[2] + ",lng:" + latLongAddresses[3] + "}";
-  //     }
-  //  console.log("lat/lon addys in: " + latLongAddresses);
-  //   });
-  // }
-  // //call the function with the street addresses
-  // LLaddress(homeAddress);
-  // LLaddress(workAddress);
-
-  //  console.log("lat/lon addys: " + latLongAddresses);
-
   function setTimes(time) {
     //divide time input into hours and minutes
     hours = time.slice(0,2);
@@ -154,10 +127,6 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     if (travelingAt.length == 2) {
       timeToWork = travelingAt[0];
       timeToHome = travelingAt[1];
-
-      //change the date to the following Wednesday and the one after that to add then average- ??
-      // timeToWork2 = new Date(nextWednesday.setDate(nextWednesday.getDate() + (16-nextWednesday.getDay())%7+1));
-      // timeToWork3 = new Date(nextWednesday.setDate(nextWednesday.getDate() + (23-nextWednesday.getDay())%7+1));
     }
     //adjust time data for 12 hour clock and add AM or PM
     function timeChange (hrs) {
@@ -177,12 +146,10 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 
     //set up values for display
     if (times.length == 2) {
-      var x = "<br> Home: " + homeAddress.slice(0, -15) + "&nbsp; &nbsp; &nbsp; Work: " + workAddress.slice(0, -15);
+      var x = "<br> Home: " + homeAddress.slice(0, -15) + "&nbsp; Leaving for work at: " + times[0]
       theInput.push(x);
-      console.log(x);
-      var y = "<br>Leaving for work at: " + times[0] +  "&nbsp; &nbsp; Leaving for home at: " + times[1] + "<p>*Transit riders may need to pay an additional fee if transferring to non-Metro municipal carriers.</p>";
+      var y = "Work: " + workAddress.slice(0, -15) + "&nbsp; Leaving for home at: " + times[1];
       theInput.push(y);
-      console.log(y);
     }
   }
   setTimes(leaveHome);
@@ -222,14 +189,15 @@ AutocompleteDirectionsHandler.prototype.route = function() {
           function convertTime (input) {
             return parseInt(input/60) + ' hour(s) and ' + input%60 + ' minute(s)';
           }
-          
+          console.log("results = " + JSON.stringify(results))
           for (var j = 0; j < results.length; j++) {
+
             var theAddresses = originList[i].slice(0, -15) + ' to ' + destinationList[j].slice(0, -15);
             if (theMode === "DRIVING") {
               var distanceResult = results[j].distance.text;
               //slice " mi" off the distance return value
               var trimDistance = distanceResult.slice(0, -3);
-              var theDistance = results[j].duration_in_traffic.text;
+              var theDuration = results[j].duration_in_traffic.text;
               //adjust travel time in traffic from seconds to minutes
               var timeEachWay = (results[j].duration_in_traffic.value / 60).toFixed(0);
               //push travel times each way into array
@@ -252,31 +220,34 @@ AutocompleteDirectionsHandler.prototype.route = function() {
                 var commuteHome = convertTime(annualDriveTime[1]);
                 var timeToWork = convertTime(timeTravelArray[0]);
                 var timeToHome = convertTime(timeTravelArray[1]);
+                var theDistance = results[j].distance.text;
               } 
               //Put costs in decimal format
               monetaryCost = Math.round(cost*Math.pow(10,2))/Math.pow(10,2).toFixed(2)
               //Put distance and times into one variable
-              var distanceAndTime = results[j].distance.text + ' each way. Home to work in ' +  timeToWork + "; work to home in " + timeToHome;                
+              var distanceAndTime = theDistance + ' each way. <br>Home to work in ' +  timeToWork + ". Work to home in " + timeToHome;                
             }  
-// 3335 South Figueroa Street, Los Angeles, CA&nbsp; &nbsp; &nbsp; Work: 11677 Pacific Coast Highway, Malibu, CA
 
             else if (theMode === "TRANSIT") {
-              var theDistance = results[j].duration.text
+              //if there is no transit option:
+              if (results[0].status == "ZERO_RESULTS") {
+                var distanceAndTime = 0
+              }
+              // otherwise compute transit time
+              else {
+                var theDuration = results[j].duration.text;
+                var theDistance = results[j].distance.text;
+              
               //adjust travel time in traffic from seconds to minutes
               var oneWayTravel = (results[j].duration.value / 60).toFixed(0);
               //store adjusted 
               transitTravelArray.push(oneWayTravel);
-              // calculate annual cost of taking transit using year average of 251 work days 
-              monetaryCost = (1.75 * 502).toFixed(2);
               //calculate annual travel time for each way of commute
               var transitTimeOneWay = (Math.round(oneWayTravel*Math.pow(10,2))/Math.pow(10,2))
               var annualTransitOneWay = Number(transitTimeOneWay) * 251;
               var transitTimeOneWay = ((Number(results[j].duration.value) * 251) / 60).toFixed(0);
               //push commute times to a variable
               annualTransitTime.push(annualTransitOneWay);
-               if (!theDistance) {
-                monetaryCost = "N/A";
-                totalTravelTime = "N/A";
               }
               //Once both times are in the array, add commute times for total transit time
               if (annualTransitTime.length == 2) {
@@ -288,30 +259,192 @@ AutocompleteDirectionsHandler.prototype.route = function() {
                 var timeToWork = convertTime(transitTravelArray[0]);
                 var timeToHome = convertTime(transitTravelArray[1]);
               }
-              var distanceAndTime = results[j].distance.text + ' each way. Home to work in ' +  timeToWork + "; work to home in " + timeToHome;
+              var distanceAndTime = theDistance + ' each way.<br>Home to work in ' +  timeToWork + ". Work to home in " + timeToHome;
             }
           }
         }
       }
       //set up data for display
       if ((totalTravelTime && timeToHome) && (annualTransitTime.length == 2 || annualDriveTime.length == 2)) {
-        var a = ("<br>" + theMode + ": " + distanceAndTime);
+        var a = ("<br>" + theMode + ": approximately " + distanceAndTime);
         theInfo.push(a);
-        console.log(a);
-        var b = ("<br> &nbsp; &nbsp; &nbsp; Yearly cost: $" + monetaryCost + ", Total commute: " + totalTravelTime);
+        var b = ("<br>Total commute: " + totalTravelTime + " per year.");
         theInfo.push(b);
-        console.log(b);
       }
-      document.getElementById('theInput').innerHTML = theInput;
-      document.getElementById('theInfo').innerHTML = theInfo;
 
+      if (theInfo.length) {
+        var which = theInfo[0].slice(4,11);
+
+        if (!(results[0].status == "ZERO_RESULTS") && theInfo.length == 4 && which == "DRIVING") {
+          var dist = results[0].distance.text
+          var newDist = dist.slice(0,2);
+          var numDist = parseInt(newDist);
+
+          drive.push(theInfo[0]);
+          drive.push(theInfo[1]);
+          if (results[0].distance.value > 100 ) {
+          ride.push(theInfo[2]);
+          ride.push(theInfo[3]);
+        }
+        else {
+          ride = "TRANSIT: There are no public transit options for your chosen route."; 
+        }
+      }
+      else if (theInfo.length == 4 && which == "TRANSIT"){
+        ride.push(theInfo[0]);
+        ride.push(theInfo[1]);
+        drive.push(theInfo[2]);
+        drive.push(theInfo[3]);
+      }
+      else if ((results[0].status == "ZERO_RESULTS") && which == "DRIVING") {
+        if (drive.length == 0) {
+          drive.push(theInfo[0]);
+          drive.push(theInfo[1]);
+        }
+        ride = "TRANSIT: There are no public transit options for your chosen route.";    
+      }
+      
+      document.getElementById('drivingInput').innerHTML = drive;
+      document.getElementById('transitInput').innerHTML = ride;   
+      document.getElementById('drivingCost').innerHTML = "Annual driving cost estimated at $" + monetaryCost  
+      document.getElementById('homeInput').innerHTML = theInput[0] + "<br>" + theInput[1];
+      document.getElementById('theButton').innerHTML = '<input type="submit" value="Clear" onClick="window.location.reload()" class="button">'
+      }
     });
-  }   
+  }
+
+  //uncomment the following if map with routes and directions are wanted
+  var theMap = google.maps;
+  //get map that shows Los Angeles
+  map = new theMap.Map(document.getElementById('map'), {
+    mapTypeControl: false,
+    center: {lat:34.0522,lng:-118.2437},
+    zoom: 10
+  });
+
+  App = { 
+    //set up how route lines and directions will be shown
+    map: map,
+    bounds            : new theMap.LatLngBounds(),
+    directionsService : new theMap.DirectionsService(),    
+    directionsDisplay1: new theMap.DirectionsRenderer({
+                          map             : map,
+                          preserveViewport: true,
+                          polylineOptions : {strokeColor:'red'},
+                          markerOptions: {icon: 'red.png'},
+                          panel           : document.getElementById('panel').appendChild(document.createElement('li'))
+                        }),
+    directionsDisplay2: new theMap.DirectionsRenderer({
+                          map             : map,
+                          preserveViewport: true,
+                          suppressMarkers : true,
+                          polylineOptions : {strokeColor:'purple'},
+                          panel           : document.getElementById('panel').appendChild(document.createElement('li'))
+                        }),
+    directionsDisplay3: new theMap.DirectionsRenderer({
+                          map             : map,
+                          preserveViewport: true,
+                          polylineOptions : {strokeColor:'green'},
+                          markerOptions: {icon: 'red.png'},
+                          panel           : document.getElementById('panel').appendChild(document.createElement('li'))
+                          }),
+    directionsDisplay4: new theMap.DirectionsRenderer({
+                          map             : map,
+                          preserveViewport: true,
+                          suppressMarkers : true,
+                          polylineOptions : {strokeColor:'blue'},
+                          panel           : document.getElementById('panel').appendChild(document.createElement('li'))
+                          })
+  },
+            
+  driveOption  = {  origin  :  homeAddress,
+                destination :  workAddress,
+                travelMode  :  theMap.TravelMode.DRIVING},        
+  metroOption  = {  origin   :  homeAddress,
+                destination :  workAddress,
+                travelMode  :  theMap.TravelMode.TRANSIT},
+  driveOption2  = {  origin  :  workAddress,
+                destination :  homeAddress,
+                travelMode  :  theMap.TravelMode.DRIVING},        
+  metroOption2  = {  origin   :  workAddress,
+                destination :  homeAddress,
+                travelMode  :  theMap.TravelMode.TRANSIT};
+
+  //function to extract transit data from google map API JSON object and extract transit information
+  function nonMetro(result) {
+    if 
+      (!result.routes[0]) {
+      document.getElementById('walkingInput').innerHTML = "&nbsp; &nbsp; &nbsp;  (And Google considers the distance too far to walk.)";
+    }
+    else {
+      var stepLength = result.routes[0].legs[0].steps.length;
+      for (i=0; i < stepLength; i++) {
+        // calculate annual cost of taking transit using year average of 251 work days 
+        var travMode = JSON.stringify(result.routes[0].legs[0].steps[i].travel_mode);
+        var fares = (1.75 * 502).toFixed(2);
+
+        if (stepLength == 1 && travMode == '"WALKING"') {
+          document.getElementById('walkingInput').innerHTML = "&nbsp; &nbsp; &nbsp; Walking directions provided.";
+        }
+        else {
+          document.getElementById('transitCost').innerHTML = "Annual transit cost estimated at $" + fares;
+        }
+        if (travMode && travMode == '"TRANSIT"') {
+          var carrier = JSON.stringify(result.routes[0].legs[0].steps[i].transit.line.agencies[0].name);
+          if (carrier != '"Metro - Los Angeles"') {
+            carrierName = carrier.slice(1, -1);
+            carrierName = " " + carrierName;
+            if (notMetro.indexOf(carrierName) === -1) {
+              notMetro.push(carrierName);
+            }
+            if (notMetro.length == 1) {
+              document.getElementById('transitFee').innerHTML = "*Because the transit route includes" + notMetro + ", which is outside the Los Angeles Metro system, extra cost will be incurred."
+            }
+            else { document.getElementById('transitCost').innerHTML = "Annual transit cost estimated at $" + fares;
+              multiNotMetro = notMetro.join(" and");
+              document.getElementById('transitFee').innerHTML = "*Because the transit route includes" + multiNotMetro + ", which are outside the Los Angeles Metro system, extra cost will be incurred."
+            }
+          }
+        }
+      }
+    }
+  }
+  // display routes
+  App.directionsService.route(driveOption, function(result, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      App.directionsDisplay1.setDirections(result);
+      App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+    }
+  //get home and work latitude and longitude pairs if needed for use with another mapping or charting program
+  latLongHome = JSON.stringify(result.routes[0].legs[0].start_location);
+  latLongWork = JSON.stringify(result.routes[0].legs[0].end_location);
+  }); 
+  
+  App.directionsService.route(driveOption2, function(result, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      App.directionsDisplay2.setDirections(result);
+      App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+    }
+  });
+
+  App.directionsService.route(metroOption, function(result, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      App.directionsDisplay3.setDirections(result);
+      App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+    }
+  nonMetro(result);
+  }); 
+  
+  App.directionsService.route(metroOption2, function(result, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      App.directionsDisplay4.setDirections(result);
+      App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
+    }
+  nonMetro(result);
+  });
+      
   modes('DRIVING', timeToWork)
   modes('TRANSIT', timeToWork)
   modes('DRIVING', timeToHome)
   modes('TRANSIT', timeToHome)
-
 };
-
-

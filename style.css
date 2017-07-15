@@ -1,8 +1,50 @@
 #map {
   height: 375px;
-  width: 800px;
 }
 
+h3,
+label,
+#drivingInput,
+#transitInput,
+#walkingInput,
+#drivingCost,
+#transitCost,
+#homeInput,
+#workInput {
+  font-family: 'Prosto One', 'Verdana', cursive;
+  text-align: center;
+}
+#transitCost,
+#drivingCost {
+  margin-top: 10px;
+}
+#homeInput,
+#workInput {
+    font-size: 14px;
+}
+label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 2%;
+  margin-right: 1%;
+}
+.button {
+  font-family: 'Prosto One', 'Verdana', cursive;
+  font-size: 16px;
+  margin:auto; display:block;
+  margin-top: 10px;
+  padding: 7px;
+  background-color: #d9d9d9;
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+}
+#header {
+  background-color: #d9d9d9;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
 .controls {
   margin-top: 10px;
   border: 1px solid transparent;
@@ -13,6 +55,9 @@
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
+.sm-col-10 {
+  text-align: center;
+}
 
 #home-input,
 #work-input {
@@ -20,7 +65,7 @@
   font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
-  margin-left: 12px;
+  margin-left: 15%;
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
   width: 250px;
@@ -31,11 +76,36 @@
   border-color: #4d90fe;
 }
 
-label {
-  margin-left: 30px;
-  margin-right: 30px;
+#panel li:before{        
+  padding: 3px;
+  display:block;
+  color:#fff;
+  font-weight:bold;
+} 
+#panel li:nth-child(1):before{
+  content:'DRIVING';
+  background:red;
+} 
+#panel li:nth-child(2):before{
+  content:'DRIVING';
+  background:purple;
+} 
+ #panel li:nth-child(3):before{
+  content:'TRANSIT';
+  background:green;
+  color:#000;
+} 
+#panel li:nth-child(4):before{
+  content:'TRANSIT';
+  background:blue;
+  color:#000;
+} 
+
+div.adp-summary {
+  font-size: 0px;
 }
 
-p {
+#transitFee {
   font-size: 14px;
+  margin-top: 10px;
 }
