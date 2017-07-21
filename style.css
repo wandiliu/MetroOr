@@ -83,20 +83,20 @@ label {
   font-weight:bold;
 } 
 #panel li:nth-child(1):before{
-  content:'DRIVING';
+  content:'Driving To Work';
   background:red;
 } 
 #panel li:nth-child(2):before{
-  content:'DRIVING';
+  content:'Driving Home';
   background:purple;
 } 
  #panel li:nth-child(3):before{
-  content:'TRANSIT';
+  content:'Transit to Work';
   background:green;
   color:#000;
 } 
 #panel li:nth-child(4):before{
-  content:'TRANSIT';
+  content:'Transit Home';
   background:blue;
   color:#000;
 } 
