@@ -8,9 +8,12 @@ nav{
 }
 #map {
     width: 90%;
-    height: 500px;
+    height: 550px;
     margin:auto;
     border-radius: 10px;
+    /*border-color:  #95989A;
+    border-style: solid;
+    border-width: thin;*/
 }
 
 div{
@@ -26,16 +29,22 @@ h1{
    color: #2F3541;
 }
 
-button{
+/*.button{
+  margin:auto; display:block;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  background-color: #95989A;
+  height: 50px;
+  width:200px;
+  font-size: 1.25rem;
   margin-bottom: 1rem;
   padding: 0.6rem;
-  background-color: transparent;
-  width: 200px;
-  border-style: solid;
-  border-width: 0.25px;
-  border-color: #95989A;
   border-radius: 50px;
-}
+}*/
+/*
+.button:hover{
+  background-color: #2F3541;
+}*/
 
 a{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -76,6 +85,25 @@ input[type='text']{
   font-weight: 300;
 }
 
+input[type='submit']{
+  margin-top: 3rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:1rem;
+  font-weight: 300;
+  color:#2F3541;
+  border-color: #2F3541;
+  height: 50px;
+  width:200px;
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+  padding: 0.6rem;
+  border-radius: 50px;
+}
+
+input[type='submit']:hover{
+  color:#FFFFFF;
+  background-color: #2F3541;
+}
 
 a:link{
   letter-spacing: none;
@@ -126,18 +154,6 @@ label {
   margin-top: 10px;
 }
 
-.button {
-  font-size: 16px;
-  margin:auto; display:block;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  border-color:transparent;
-  background-color: #2F3541;
-  height: 50px;
-  color: white;
-  font-size: 1.25rem;
-}
-
 .controls {
   margin-top: 30px;
   border: 1px solid transparent;
@@ -168,6 +184,11 @@ label {
   border-color: #4d90fe;
 }
 
+#transitFee {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
 #panel li:before{
   padding: 3px;
   display:block;
@@ -189,12 +210,4 @@ label {
   content:'Transit Home';
   color:#000;
 }
-
-div.adp-summary {
-  font-size: 0px;
-}
-
-/*#transitFee {
-  font-size: 14px;
-  margin-top: 10px;
-}*/
+/*
