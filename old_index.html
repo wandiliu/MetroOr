@@ -29,14 +29,17 @@
 
   <!-- MAIN UI -->
 
-   <div style = "padding-top: 200px">
+   <div id="begin" style = "padding-top: 220px">
 
   <!-- INTRO TEXT -->
 
    <div class="dib w-100 pa2">
    <div style ="text-align: center;">
-     <img src='./metro.svg' alt="commute" style ="margin: auto; width: 20%"></img>
+     <img src='./metro.svg' alt="commute" style ="margin: auto; width: 16%"></img>
+     <br>
    <h1 class="f2 mt4">Welcome to MetroOrDrive, a tool to help you discover the best way to commute.</h1>
+   <button id="next-button"><a href="#timeForm">Let's start</a></button>
+
    </div>
   </div>
 
@@ -51,9 +54,9 @@
 
       <!-- RIGHT SIDE TIME FORM -->
 
-       <div class="dib w-100 pa2" style="text-align:center">
-         <div style="margin-top:150px"></div>
-         <div class = "fl-l w-50">
+       <div id="timeForm" class="dib w-100 pa2" style="text-align:center">
+         <div style="margin-top:230px"></div>
+         <div class = "fl-l w-50" style="margin-top:20px">
            <img src='./clocks.svg' alt="clocks" style ="margin: auto; width: 100%; padding-left: 60px;"></img>
          </div>
          <div class="mt3">
@@ -68,6 +71,8 @@
            <label>When do you leave work? (ie. 6:00 PM)</label> <br>
              <input type="time" name="fromWork" id="leave-work" placeholder="6:00 AM" class ="mt1" />
              <br>
+             <button id="next-button"><a href="#addressForm">Continue</a></button>
+
          </div>
          <!-- <div class="mt3">
            <label class="mid-gray">Default: 8:00 AM - 06:00 PM</label>
@@ -77,7 +82,7 @@
 <!-- End of Time Section-->
 
 
-<div style="margin-top:130px"></div>
+<div id="addressForm" style="margin-top:150px"></div>
 
 <!-- Address Section -->
  <div class="fl w-100 pa5">
@@ -85,6 +90,7 @@
         <p id="instructions">Now, enter your starting point and destination:</p>
         <input id="home-input" class="controls" type="text" placeholder="Your Home Address">
         <input id="work-input" class="controls" type="text" placeholder="Your Workplace Address">
+
       </div>
       <br>
 
@@ -96,13 +102,17 @@
 
     <div>
       <div id="showMap"></div>
+        <button id="next-button" style="margin-top:0px"><a href="#results">See my verdict</a></button>
     </div>
   </div>
 </div>
 
 <!-- results -->
+<div id="results" style="margin-bottom:175px"></div>
 <div class="dib w-100" style="text-align:center">
-  <div id="resultSection" class="f2"></div>
+  <div id="resultSection" class="f3"> <p>Oops, looks like someone forgot their address...</p>
+    <button id="next-button" style="margin-top:0px"><a href="#addressForm">Back</a></button>
+</div>
   <div id="homeInput"></div>
   <div id="workInput"></div>
   <div id="drivingInput"></div>

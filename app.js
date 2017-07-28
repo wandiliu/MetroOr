@@ -311,8 +311,9 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       document.getElementById('transitInput').innerHTML = ride;
       document.getElementById('drivingCost').innerHTML = "Annual driving cost estimated at $" + monetaryCost
       document.getElementById('homeInput').innerHTML = theInput[0] + "<br>" + theInput[1];
-      document.getElementById('theButton').innerHTML = '<input type="submit" value="Start Over" onClick="window.location.reload(); document.body.scrollTop = document.documentElement.scrollTop = 0;" class="button">'
+      document.getElementById('theButton').innerHTML = '<button onClick="window.location.reload()"; id="next-button"><a href="#begin">Start Over</a></button>'
       }
+
     });
   }
 
