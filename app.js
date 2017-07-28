@@ -17,6 +17,9 @@ var ride = [];
 var drive = [];
 var monetaryCost;
 
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+}
 function initMap() {
 
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -303,12 +306,12 @@ AutocompleteDirectionsHandler.prototype.route = function() {
         }
         ride = "TRANSIT: There are no public transit options for your chosen route.";
       }
-      document.getElementById('resultSection').innerHTML = '<p id="instructions" style="font-weight:400; font-size=3rem">The Verdict</p>'
+      document.getElementById('resultSection').innerHTML = '<p>The Verdict</p>'
       document.getElementById('drivingInput').innerHTML = drive;
       document.getElementById('transitInput').innerHTML = ride;
       document.getElementById('drivingCost').innerHTML = "Annual driving cost estimated at $" + monetaryCost
       document.getElementById('homeInput').innerHTML = theInput[0] + "<br>" + theInput[1];
-      document.getElementById('theButton').innerHTML = '<input type="submit" value="Start Over" onClick="window.location.reload()" class="button">'
+      document.getElementById('theButton').innerHTML = '<input type="submit" value="Start Over" onClick="window.location.reload(); document.body.scrollTop = document.documentElement.scrollTop = 0;" class="button">'
       }
     });
   }
@@ -332,28 +335,28 @@ AutocompleteDirectionsHandler.prototype.route = function() {
                           preserveViewport: true,
                           polylineOptions : {strokeColor:'red'},
                           markerOptions: {icon: 'red.png'},
-                          panel           : document.getElementById('panel').appendChild(document.createElement('li'))
+                          // panel           : document.getElementById('panel').appendChild(document.createElement('li'))
                         }),
     directionsDisplay2: new theMap.DirectionsRenderer({
                           map             : map,
                           preserveViewport: true,
                           suppressMarkers : true,
                           polylineOptions : {strokeColor:'purple'},
-                          panel           : document.getElementById('panel').appendChild(document.createElement('li'))
+                          // panel           : document.getElementById('panel').appendChild(document.createElement('li'))
                         }),
     directionsDisplay3: new theMap.DirectionsRenderer({
                           map             : map,
                           preserveViewport: true,
                           polylineOptions : {strokeColor:'green'},
                           markerOptions: {icon: 'red.png'},
-                          panel           : document.getElementById('panel').appendChild(document.createElement('li'))
+                          // panel           : document.getElementById('panel').appendChild(document.createElement('li'))
                           }),
     directionsDisplay4: new theMap.DirectionsRenderer({
                           map             : map,
                           preserveViewport: true,
                           suppressMarkers : true,
                           polylineOptions : {strokeColor:'blue'},
-                          panel           : document.getElementById('panel').appendChild(document.createElement('li'))
+                          // panel           : document.getElementById('panel').appendChild(document.createElement('li'))
                           })
   },
 
