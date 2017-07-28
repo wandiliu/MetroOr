@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>MetroOrDrive</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
+  <script type="text/javascript" src="app.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC49l21opGjGaAvpfhvInZgL3ORHV63pxo&libraries=places&callback=initMap" async defer></script>
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
+
+</head>
+
+<body >
+
+  <!-- NAV BAR -->
+
+    <nav>
+    <ul class='list fl w-100 pa2'>
+    <div class='fl-l' style="padding-right: 66%; padding-left: 50px ">
+      <li><a href="./old_index.html" class='link dim'>MetroOrDrive</a></li>
+    </div>
+    <div class='fl-r' style="padding-right: 50px">
+      <li class='dib'><a href="#About" class='link dim'>About</a></li>
+  <li class='dib ml4'><a href="http://codingforproduct.com/" class='link dim'>Coding For Product</a></li>
+    </div>
+    </ul>
+  </nav>
+
+  <!-- MAIN UI -->
+
+   <div style = "padding-top: 200px">
+
+  <!-- INTRO TEXT -->
+
+   <div class="dib w-100 pa2">
+   <div style ="text-align: center;">
+     <img src='./metro.svg' alt="commute" style ="margin: auto; width: 20%"></img>
+   <h1 class="f2 mt4">Welcome to MetroOrDrive, a tool to help you discover the best way to commute.</h1>
+   </div>
+  </div>
+
+  <!-- <br>
+  <div class="clearfix">
+    <div class="sm-col-10 mx-auto">
+      <label>Leave home: </label>
+        <input type="time" name="fromHome" id="leave-home" />
+      <label>Leave work: </label>
+        <input type="time" name="fromWork" id="leave-work" />
+      <label>(default is 8:00 AM - 06:00 PM)</label> -->
+
+      <!-- RIGHT SIDE TIME FORM -->
+
+       <div class="dib w-100 pa2" style="text-align:center">
+         <div style="margin-top:250px"></div>
+         <div class = "fl-l w-50">
+           <img src='./clocks.svg' alt="clocks" style ="margin: auto; width: 100%; padding-left: 60px;"></img>
+         </div>
+         <div class="mt3">
+           <p id="instructions">First, tell us about your daily schedule:</p>
+           <br>
+           <div class="dib" style="text-align: left">
+           <label>When do you leave home? (ie. 8:00 AM)</label>
+           <br>
+             <input type="time" name="fromHome" id="leave-home" placeholder="8:00 AM" class ="mt1"/>
+           <br>
+           <div class="mt3"><div>
+           <label>When do you leave work? (ie. 6:00 PM)</label> <br>
+             <input type="time" name="fromWork" id="leave-work" placeholder="6:00 AM" class ="mt1" />
+             <br>
+         </div>
+         <!-- <div class="mt3">
+           <label class="mid-gray">Default: 8:00 AM - 06:00 PM</label>
+         </div> -->
+         </div>
+       </div>
+<!-- End of Time Section-->
+
+
+<div style="margin-top:200px"></div>
+
+<!-- Address Section -->
+ <div class="fl w-100 pa5">
+      <div class="w-50" style="text-align:center">
+        <p id="instructions">Now, enter your starting point and destination:</p>
+        <input id="home-input" class="controls" type="text" placeholder="Your Home Address">
+        <input id="work-input" class="controls" type="text" placeholder="Your Workplace Address">
+      </div>
+      <br>
+
+
+
+<!-- show map -->
+      <div id="map" align="center"></div>
+    </div>
+
+    <div>
+      <div id="showMap"></div>
+    </div>
+  </div>
+</div>
+
+<!-- results -->
+<div style="margin-top:15px"></div>
+<div class="dib w-100" style="text-align:center">
+  <div id="resultSection"></div>
+  <div id="homeInput"></div>
+  <div id="workInput"></div>
+  <div id="drivingInput"></div>
+  <div id="drivingCost"></div>
+  <div id="transitInput"></div>
+  <div id="transitCost"></div>
+  <div id="walkingInput"></div>
+  <div id="transitFee"></div>
+  <div id="theButton"></div>
+  <br>
+</div>
+<div class="dib w-100" style="margin-top: 50px; text-align:center;">
+<div id="routesSection"></div>
+<ol id="panel"></ol>
+</div>
+</div>
+</body>
+
+
+<!-- FOOTER -->
+</div id="footer">
+
+  <div>
+  <img src='./LA_skyline.svg' alt="LA skyline"></img>
+
+</div>
+</html>

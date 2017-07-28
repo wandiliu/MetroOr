@@ -18,7 +18,7 @@ var drive = [];
 var monetaryCost;
 
 function initMap() {
-  
+
   var map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,
     center: {lat:34.0522,lng:-118.2437},
@@ -142,7 +142,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       times.push(hrs);
     }
     timeChange(leaveHome);
-    timeChange(leaveWork); 
+    timeChange(leaveWork);
 
     //set up values for display
     if (times.length == 2) {
@@ -202,7 +202,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
               var timeEachWay = (results[j].duration_in_traffic.value / 60).toFixed(0);
               //push travel times each way into array
               timeTravelArray.push(timeEachWay);
-              // calculate annual costs of driving using year average of 251 work days 
+              // calculate annual costs of driving using year average of 251 work days
               // and $0.26 cents of wear, tear, and gas
               var cost = (Number(trimDistance) * .26) * 502;
               var lengthDrive = results[j].duration_in_traffic.value
@@ -213,7 +213,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
               annualDriveTime.push(annualHalfDriveTime);
               //Once both times are in the array, add commute times for total driving time
               if (annualDriveTime.length == 2) {
-                totalAnnualCommuteTime = annualDriveTime[0] + annualDriveTime[1];  
+                totalAnnualCommuteTime = annualDriveTime[0] + annualDriveTime[1];
                 //use convertTime function, store in variables
                 var totalTravelTime = convertTime(totalAnnualCommuteTime);
                 var commuteToWork = convertTime(annualDriveTime[0]);
@@ -221,12 +221,12 @@ AutocompleteDirectionsHandler.prototype.route = function() {
                 var timeToWork = convertTime(timeTravelArray[0]);
                 var timeToHome = convertTime(timeTravelArray[1]);
                 var theDistance = results[j].distance.text;
-              } 
+              }
               //Put costs in decimal format
               monetaryCost = Math.round(cost*Math.pow(10,2))/Math.pow(10,2).toFixed(2)
               //Put distance and times into one variable
-              var distanceAndTime = theDistance + ' each way. <br>Home to work in ' +  timeToWork + ". Work to home in " + timeToHome;                
-            }  
+              var distanceAndTime = theDistance + ' each way. <br>Home to work in ' +  timeToWork + ". Work to home in " + timeToHome;
+            }
 
             else if (theMode === "TRANSIT") {
               //if there is no transit option:
@@ -237,10 +237,10 @@ AutocompleteDirectionsHandler.prototype.route = function() {
               else {
                 var theDuration = results[j].duration.text;
                 var theDistance = results[j].distance.text;
-              
+
               //adjust travel time in traffic from seconds to minutes
               var oneWayTravel = (results[j].duration.value / 60).toFixed(0);
-              //store adjusted 
+              //store adjusted
               transitTravelArray.push(oneWayTravel);
               //calculate annual travel time for each way of commute
               var transitTimeOneWay = (Math.round(oneWayTravel*Math.pow(10,2))/Math.pow(10,2))
@@ -251,7 +251,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
               }
               //Once both times are in the array, add commute times for total transit time
               if (annualTransitTime.length == 2) {
-                totalAnnualCommuteTime = annualTransitTime[0] + annualTransitTime[1];  
+                totalAnnualCommuteTime = annualTransitTime[0] + annualTransitTime[1];
                 //use convertTime function, store in variables
                 var totalTravelTime = convertTime(totalAnnualCommuteTime);
                 var commuteToWork = convertTime(annualTransitTime[0]);
@@ -287,7 +287,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
           ride.push(theInfo[3]);
         }
         else {
-          ride = "TRANSIT: There are no public transit options for your chosen route."; 
+          ride = "TRANSIT: There are no public transit options for your chosen route.";
         }
       }
       else if (theInfo.length == 4 && which == "TRANSIT"){
@@ -301,14 +301,14 @@ AutocompleteDirectionsHandler.prototype.route = function() {
           drive.push(theInfo[0]);
           drive.push(theInfo[1]);
         }
-        ride = "TRANSIT: There are no public transit options for your chosen route.";    
+        ride = "TRANSIT: There are no public transit options for your chosen route.";
       }
-      
+      document.getElementById('resultSection').innerHTML = '<p id="instructions" style="font-weight:400; font-size=3rem">The Verdict</p>'
       document.getElementById('drivingInput').innerHTML = drive;
-      document.getElementById('transitInput').innerHTML = ride;   
-      document.getElementById('drivingCost').innerHTML = "Annual driving cost estimated at $" + monetaryCost  
+      document.getElementById('transitInput').innerHTML = ride;
+      document.getElementById('drivingCost').innerHTML = "Annual driving cost estimated at $" + monetaryCost
       document.getElementById('homeInput').innerHTML = theInput[0] + "<br>" + theInput[1];
-      document.getElementById('theButton').innerHTML = '<input type="submit" value="Clear" onClick="window.location.reload()" class="button">'
+      document.getElementById('theButton').innerHTML = '<input type="submit" value="Start Over" onClick="window.location.reload()" class="button">'
       }
     });
   }
@@ -322,11 +322,11 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     zoom: 10
   });
 
-  App = { 
+  App = {
     //set up how route lines and directions will be shown
     map: map,
     bounds            : new theMap.LatLngBounds(),
-    directionsService : new theMap.DirectionsService(),    
+    directionsService : new theMap.DirectionsService(),
     directionsDisplay1: new theMap.DirectionsRenderer({
                           map             : map,
                           preserveViewport: true,
@@ -356,30 +356,31 @@ AutocompleteDirectionsHandler.prototype.route = function() {
                           panel           : document.getElementById('panel').appendChild(document.createElement('li'))
                           })
   },
-            
+
   driveOption  = {  origin  :  homeAddress,
                 destination :  workAddress,
-                travelMode  :  theMap.TravelMode.DRIVING},        
+                travelMode  :  theMap.TravelMode.DRIVING},
   metroOption  = {  origin   :  homeAddress,
                 destination :  workAddress,
                 travelMode  :  theMap.TravelMode.TRANSIT},
   driveOption2  = {  origin  :  workAddress,
                 destination :  homeAddress,
-                travelMode  :  theMap.TravelMode.DRIVING},        
+                travelMode  :  theMap.TravelMode.DRIVING},
   metroOption2  = {  origin   :  workAddress,
                 destination :  homeAddress,
                 travelMode  :  theMap.TravelMode.TRANSIT};
 
   //function to extract transit data from google map API JSON object and extract transit information
   function nonMetro(result) {
-    if 
+    document.getElementById('routesSection').innerHTML = '<p id="instructions" style="font-weight:400; font-size=3rem">Here are your routes:</p>';
+    if
       (!result.routes[0]) {
       document.getElementById('walkingInput').innerHTML = "&nbsp; &nbsp; &nbsp;  (And Google considers the distance too far to walk.)";
     }
     else {
       var stepLength = result.routes[0].legs[0].steps.length;
       for (i=0; i < stepLength; i++) {
-        // calculate annual cost of taking transit using year average of 251 work days 
+        // calculate annual cost of taking transit using year average of 251 work days
         var travMode = JSON.stringify(result.routes[0].legs[0].steps[i].travel_mode);
         var fares = (1.75 * 502).toFixed(2);
 
@@ -418,8 +419,8 @@ AutocompleteDirectionsHandler.prototype.route = function() {
   //get home and work latitude and longitude pairs if needed for use with another mapping or charting program
   latLongHome = JSON.stringify(result.routes[0].legs[0].start_location);
   latLongWork = JSON.stringify(result.routes[0].legs[0].end_location);
-  }); 
-  
+  });
+
   App.directionsService.route(driveOption2, function(result, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       App.directionsDisplay2.setDirections(result);
@@ -433,8 +434,8 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       App.map.fitBounds(App.bounds.union(result.routes[0].bounds));
     }
   nonMetro(result);
-  }); 
-  
+  });
+
   App.directionsService.route(metroOption2, function(result, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       App.directionsDisplay4.setDirections(result);
@@ -442,7 +443,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     }
   nonMetro(result);
   });
-      
+
   modes('DRIVING', timeToWork)
   modes('TRANSIT', timeToWork)
   modes('DRIVING', timeToHome)
