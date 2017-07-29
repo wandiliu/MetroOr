@@ -168,13 +168,13 @@ a:visited{
 
 #instructions{
   text-align: center;
-  font-weight:300;
-  font-size:1.5rem;
+  font-weight:350;
+  font-size:1.75rem;
 }
 
 label {
   text-align:left;
-  font-weight:250;
+  font-weight:300;
   font-size:1.25rem;
   padding-right: 30px;
 }
@@ -285,6 +285,30 @@ label {
   margin: 0;
   font-size: 1.75rem;
   font-weight: 350;
+  letter-spacing: 1px;
+}
+
+@media screen and (min-width: 20em) and (max-width: 60em) {
+ .clip-m { position: fixed !important; position: absolute !important; clip: rect( 1px 1px 1px 1px ); /* IE6, IE7 */ clip: rect( 1px, 1px, 1px, 1px ); }
+}
+
+.cf:before, .cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    *zoom: 1;
+}
+
+@media screen and (min-width:50em) {
+    .w-50-ns {
+        width: 50%;
+    }
 }
 
 /*
