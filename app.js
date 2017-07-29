@@ -142,6 +142,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       } else {
         hrs = hrs + " AM";
       }
+
       times.push(hrs);
     }
     timeChange(leaveHome);
@@ -149,9 +150,9 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 
     //set up values for display
     if (times.length == 2) {
-      var x = "<br> Home: " + homeAddress.slice(0, -15) + "&nbsp; Leaving for work at: " + times[0]
+      var x = "<p id='instructions' style='margin-bottom:2rem; margin-top:5rem;'>Your Routine</p> <br> <p id='resText'> Depart for work from <b>" + homeAddress.slice(0, -15) + "</b> at <b>" + times[0] + "</b></p>"
       theInput.push(x);
-      var y = "Work: " + workAddress.slice(0, -15) + "&nbsp; Leaving for home at: " + times[1];
+      var y = "<p id='resText'><br> Return for home from <b>" + workAddress.slice(0, -15) + "</b> at <b>" + times[1] + "</b></p> <p id='instructions' style='margin-bottom:3rem; margin-top:7rem;'>Our Verdict</p>";
       theInput.push(y);
     }
   }
@@ -190,7 +191,18 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 
           //function to put time in hour and minute format
           function convertTime (input) {
-            return parseInt(input/60) + ' hour(s) and ' + input%60 + ' minute(s)';
+            var r = "";
+            var d = "";
+            var h = "";
+            var m = "";
+            var days = parseInt(input/1140);
+            var hours = parseInt((input%1140)/60);
+            var minutes = input%60;
+            if(days!=0){d=days+' days ';}
+            if(hours!=0){h=hours+ ' hr '}
+            if(minutes!=0){m=minutes+ ' min'}
+            r = d + h + m;
+            return r;
           }
           console.log("results = " + JSON.stringify(results))
           for (var j = 0; j < results.length; j++) {
@@ -228,7 +240,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
               //Put costs in decimal format
               monetaryCost = Math.round(cost*Math.pow(10,2))/Math.pow(10,2).toFixed(2)
               //Put distance and times into one variable
-              var distanceAndTime = theDistance + ' each way. <br>Home to work in ' +  timeToWork + ". Work to home in " + timeToHome;
+              var distanceAndTime = '<b>' + theDistance + '</b> each way.<br><br> Average time to work: <b>' +  timeToWork + "</b> <br>Average time to home: <b>" + timeToHome + "</b>";
             }
 
             else if (theMode === "TRANSIT") {
@@ -262,16 +274,16 @@ AutocompleteDirectionsHandler.prototype.route = function() {
                 var timeToWork = convertTime(transitTravelArray[0]);
                 var timeToHome = convertTime(transitTravelArray[1]);
               }
-              var distanceAndTime = theDistance + ' each way.<br>Home to work in ' +  timeToWork + ". Work to home in " + timeToHome;
+              var distanceAndTime = '<b>' + theDistance + '</b> each way.<br><br>Average time to work: <b>' +  timeToWork + "</b> <br>Average time to home: <b>" + timeToHome + "</b>";
             }
           }
         }
       }
       //set up data for display
       if ((totalTravelTime && timeToHome) && (annualTransitTime.length == 2 || annualDriveTime.length == 2)) {
-        var a = ("<br>" + theMode + ": approximately " + distanceAndTime);
+        var a = ("<br>" + theMode + "<br><br> Approximately " + distanceAndTime);
         theInfo.push(a);
-        var b = ("<br>Total commute: " + totalTravelTime + " per year.");
+        var b = ("<br><br> <b>" + totalTravelTime + "</b> spent commuting.");
         theInfo.push(b);
       }
 
@@ -290,7 +302,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
           ride.push(theInfo[3]);
         }
         else {
-          ride = "TRANSIT: There are no public transit options for your chosen route.";
+          ride = "Unfortunately, there seems to be no public transit options for your chosen route at this time. :(";
         }
       }
       else if (theInfo.length == 4 && which == "TRANSIT"){
@@ -306,12 +318,12 @@ AutocompleteDirectionsHandler.prototype.route = function() {
         }
         ride = "TRANSIT: There are no public transit options for your chosen route.";
       }
-      document.getElementById('resultSection').innerHTML = '<p>The Verdict</p>'
+      document.getElementById('resultSection').innerHTML = '<h1 class="f2 mt4">Commute Summary</h1>'
       document.getElementById('drivingInput').innerHTML = drive;
       document.getElementById('transitInput').innerHTML = ride;
-      document.getElementById('drivingCost').innerHTML = "Annual driving cost estimated at $" + monetaryCost
+      document.getElementById('drivingCost').innerHTML = "Annual Driving Cost: <b> $" + monetaryCost + "</b>"
       document.getElementById('homeInput').innerHTML = theInput[0] + "<br>" + theInput[1];
-      document.getElementById('theButton').innerHTML = '<button onClick="window.location.reload()"; id="next-button"><a href="#begin">Start Over</a></button>'
+      document.getElementById('theButton').innerHTML = '<button onClick="window.location.reload()"; id="next-button" style="text-align: center; display:inline-block"><a href="#begin">Start Over</a></button>'
       }
 
     });
@@ -388,10 +400,10 @@ AutocompleteDirectionsHandler.prototype.route = function() {
         var fares = (1.75 * 502).toFixed(2);
 
         if (stepLength == 1 && travMode == '"WALKING"') {
-          document.getElementById('walkingInput').innerHTML = "&nbsp; &nbsp; &nbsp; Walking directions provided.";
+          document.getElementById('walkingInput').innerHTML = "&nbsp; &nbsp; &nbsp; Walking will be more efficient!";
         }
         else {
-          document.getElementById('transitCost').innerHTML = "Annual transit cost estimated at $" + fares;
+          document.getElementById('transitCost').innerHTML = "Annual Transit Cost: <b>$" + fares + "</b>";
         }
         if (travMode && travMode == '"TRANSIT"') {
           var carrier = JSON.stringify(result.routes[0].legs[0].steps[i].transit.line.agencies[0].name);
@@ -402,11 +414,11 @@ AutocompleteDirectionsHandler.prototype.route = function() {
               notMetro.push(carrierName);
             }
             if (notMetro.length == 1) {
-              document.getElementById('transitFee').innerHTML = "*Because the transit route includes" + notMetro + ", which is outside the Los Angeles Metro system, extra cost will be incurred."
+              document.getElementById('transitFee').innerHTML = "Note: because the transit route includes" + notMetro + ", which is outside the Los Angeles Metro system, extra cost will be incurred."
             }
-            else { document.getElementById('transitCost').innerHTML = "Annual transit cost estimated at $" + fares;
+            else { document.getElementById('transitCost').innerHTML = "Annual Transit Cost: $" + fares;
               multiNotMetro = notMetro.join(" and");
-              document.getElementById('transitFee').innerHTML = "*Because the transit route includes" + multiNotMetro + ", which are outside the Los Angeles Metro system, extra cost will be incurred."
+              document.getElementById('transitFee').innerHTML = "Note: because the transit route includes" + multiNotMetro + ", which are outside the Los Angeles Metro system, extra cost will be incurred."
             }
           }
         }
