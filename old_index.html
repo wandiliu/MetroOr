@@ -18,7 +18,7 @@
 
   <!-- NAV BAR -->
 
-    <nav class="db dt-l w-100 border-box pa3 ph5-l mt2">
+    <nav class="db dt-l w-100 border-box pa3 ph5-l mt3">
     <div class='db dtc-l v-mid mid-gray link dim w-100 w-25-l tc tl-l mb2 mb0-l'>
       <a href="./old_index.html" class='link dim'>MetroOrDrive</a>
     </div>
@@ -30,22 +30,25 @@
   </div>
   </nav>
 
+
   <!-- MAIN UI -->
 
-   <div id="begin" style = "padding-top: 10rem">
+<div class="wrapper">
 
   <!-- INTRO TEXT -->
-
+  <div id="begin" class="page">
+    <div style = "padding-top: 12rem">
    <div class="dib w-100 pa2">
    <div style ="text-align: center;">
      <img src='./metro.svg' alt="commute" style ="margin: auto; height: 9rem"></img>
      <br>
    <h1 class="f2 mt4">Welcome to MetroOrDrive, a tool to help you discover the best way to commute.</h1>
-   <button id="next-button"><a href="#timeForm">Let's begin</a></button>
+   <button id="next-button"><a href="#timeForm" class="scrollitem selected">Let's begin</a></button>
 
    </div>
   </div>
-
+</div>
+</div>
   <!-- <br>
   <div class="clearfix">
     <div class="sm-col-10 mx-auto">
@@ -56,13 +59,14 @@
       <label>(default is 8:00 AM - 06:00 PM)</label> -->
 
       <!-- RIGHT SIDE TIME FORM -->
-
-       <div id="timeForm" class="dib w-100 pa2" style="text-align:center">
-         <div style="margin-top:15rem"></div>
+  <div class="page" id="timeForm">
+    <div style = "padding-top: 10rem">
+       <div class="dib w-100 pa2" style="text-align:center">
+         <div style="margin-top:2rem"></div>
          <div class = "fl-l w-50" style="margin-top:2rem">
            <img src='./clocks.svg' alt="clocks" class="clip-m" style ="margin: auto; width: 100%; margin-left: 10%;"></img>
          </div>
-         <div class="mt3">
+         <div class="mt3"></div>
            <p id="instructions">First, tell us about your daily schedule:</p>
            <br>
            <div class="dib" style="text-align: left">
@@ -70,50 +74,44 @@
            <br>
              <input type="time" name="fromHome" id="leave-home" placeholder="8:00 AM" class ="mt1"/>
            <br>
-           <div class="mt3"><div>
+           <div class="mt3"></div>
            <label>When do you leave work? (ie. 6:00 PM)</label> <br>
              <input type="time" name="fromWork" id="leave-work" placeholder="6:00 AM" class ="mt1" />
              <br>
-             <div style="text-align:center;">
- <button id="next-button"><a href="#addressForm">Continue</a></button></div>
-
+           </div>
+             <div style="text-align:center;"><button id="next-button"><a href="#addressForm" class="scrollitem">Continue</a></button></div>
+           </div>
+         </div>
          </div>
          <!-- <div class="mt3">
            <label class="mid-gray">Default: 8:00 AM - 06:00 PM</label>
          </div> -->
-         </div>
-       </div>
+
 <!-- End of Time Section-->
 
 
-<div id="addressForm" style="margin-top:15rem"></div>
-
 <!-- Address Section -->
- <div class="fl w-100 pa2" style="margin-top:3rem">
+<div class="page" id="addressForm" >
+ <div class="fl w-100 pa2" style="margin-top:6rem" >
         <p id="instructions">Now, enter your starting point and destination:</p>
-        <input id="home-input" class="controls" type="text" placeholder="Your Home Address">
-        <input id="work-input" class="controls" type="text" placeholder="Your Work Address">
+        <input id="home-input" class="controls" type="text" placeholder="Your home address">
+        <input id="work-input" class="controls" type="text" placeholder="Your work address">
       <br>
-
-
-
 <!-- show map -->
-      <div id="map" align="center"></div>
     </div>
 
     <div>
+      <div id="map" align="center"></div>
       <div id="showMap"></div>
-        <button id="next-button" style="margin-top:3rem"><a href="#results">Metro or Drive?</a></button>
-    </div>
+      </div>
+      <div style="text-align:center;">  <button id="next-button" style="margin-top:3rem"><a href="#results" class="scrollitem">Metro or Drive?</a></button></div>
   </div>
-</div>
+
 
 <!-- results -->
-<div id="results" style="margin-bottom:12rem"></div>
+<div class="page" id="results" style="margin-top: 3rem;">
 <div class="dib w-100" style="text-align:center;">
-  <div id="resultSection" class="f3" style="margin-top:7rem"> <p>Oops, looks like someone forgot their address...</p>
-    <button id="next-button" style="margin-top:0px"><a href="#addressForm">Back</a></button>
-</div>
+  <div id="resultSection" class="f3"></div>
   <div id="homeInput"></div>
   <div id="workInput"></div>
   <div id="drivingInput"></div>
@@ -122,13 +120,19 @@
   <div id="transitCost"></div>
   <div id="walkingInput"></div>
   <div id="transitFee"></div>
-  <div id="theButton"></div>
+  <div id="theButton"><p class="f3" style="margin-top:10rem">Oops, looks like someone forgot their address...</p>
+    <button id="next-button"><a href="#addressForm" class="scrollitem">Back</a></button></div>
 </div>
 <div class="dib w-100" style="margin-top: 50px; text-align:center;">
 <!-- <div id="routesSection"></div> -->
 <ol id="panel"></ol>
 </div>
 </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/transition.js"></script>
+
 </body>
 
 
@@ -138,7 +142,7 @@
   <div>
   <img src='./LA_skyline.svg' alt="LA skyline"></img>
   <div class="fl w-100 mt2" style="text-align:center">
-  <p class="dib" style="margin-bottom:80px; font-size:1rem; font-weight:400 "> Made with ♡ by Elise, Kelena, and Wandi </p>
+  <p class="dib" style="margin-bottom:1rem; font-size:1rem; font-weight:400 "> Made with ♡ by Elise, Kelena, and Wandi </p>
   </div>
 </div>
 </html>

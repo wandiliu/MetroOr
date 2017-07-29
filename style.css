@@ -7,8 +7,8 @@ nav{
 
 }
 #map {
-    width: 90%;
-    height: 450px;
+    width: 80%;
+    height: 300px;
     margin:auto;
     border-radius: 10px;
     /*border-color:  #95989A;
@@ -159,7 +159,7 @@ a:visited{
 #footer {
     display: inline-block;
     width: 100%;
-    height : 60px;
+    height : 0px;
     position:absolute;
     bottom:0;
 
@@ -251,5 +251,12 @@ label {
 #panel li:nth-child(4):before{
   content:'Transit Home';
   color:#000;
+}
+.wrapper {
+    height: 100%;
+}
+.page {
+    float:left;
+    min-height: 100%;
 }
 /*
