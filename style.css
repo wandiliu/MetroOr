@@ -262,4 +262,25 @@ label {
     float:left;
     min-height: 100%;
 }
+#aboutlink{
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: #f07377;
+}
+#aboutlink:hover{
+  font-style: italic;
+  background-color: #f07377;
+  color: #ffdc8a;
+}
+#aboutlink2{
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #f07377;
+}
+#aboutlink2:hover{
+  font-style: italic;
+  background-color: #f07377;
+  color: #ffdc8a;
+}
+
 /*
