@@ -37,7 +37,7 @@
 
   <!-- INTRO TEXT -->
   <div id="begin" class="page">
-    <div style = "padding-top: 12rem">
+    <div style = "padding-top: 12%">
    <div class="dib w-100 pa2">
    <div style ="text-align: center;">
      <img src='./metro.svg' alt="commute" style ="margin: auto; height: 9rem"></img>
@@ -60,10 +60,10 @@
 
       <!-- RIGHT SIDE TIME FORM -->
   <div class="page" id="timeForm">
-    <div style = "padding-top: 10rem">
+    <div style = "padding-top: 10%">
        <div class="dib w-100 pa2" style="text-align:center">
-         <div style="margin-top:2rem"></div>
-         <div class = "fl-l w-50" style="margin-top:2rem">
+         <div style="padding-top:2%"></div>
+         <div class = "fl-l w-50" style="padding-top:2em">
            <img src='./clocks.svg' alt="clocks" class="clip-m" style ="margin: auto; width: 100%; margin-left: 10%;"></img>
          </div>
          <div class="mt3"></div>
@@ -92,10 +92,10 @@
 
 <!-- Address Section -->
 <div class="page" id="addressForm" >
- <div class="fl w-100 pa2" style="margin-top:6rem" >
+ <div class="fl w-100 pa2" style="padding-top:5%" >
         <p id="instructions">Now, enter your starting point and destination:</p>
-        <input id="home-input" class="controls" type="text" placeholder="Your home address">
-        <input id="work-input" class="controls" type="text" placeholder="Your work address">
+        <input id="home-input" class="controls" type="text" placeholder="Home address">
+        <input id="work-input" class="controls" type="text" placeholder="Work address">
       <br>
 <!-- show map -->
     </div>
@@ -109,49 +109,48 @@
 
 
 <!-- results -->
-<div class="page" id="results" style="margin-top: 3rem;">
+<div class="page" id="results" style="padding-top: 5rem;">
   <div style="text-align:center">
   <div id="resultSection" class="f3"></div>
   <div id="homeInput"></div>
   <div id="workInput"></div>
-  <article style="text-align:center; margin-left:10%; margin-right:10%;">
-    <div class="fl w-50" style="text-align:center" >
+  <article class="cf" style="text-align:center; margin-left:10%; margin-right:10%;">
+    <div class="fl w-100 w-50-ns" style="text-align:center" >
       <img src='./car_logo.svg' alt="drive" class="clip-m" style ="margin: auto; height: 5rem; margin-left: 10%; margin-right: 15%"></img>
       <div id="drivingInput" style="padding:5px; margin-right: 5%;font-size: 1.75rem;font-weight: 350;"></div>
       <div id="drivingCost" style="padding:5px; margin-right: 5%;font-size: 1.75rem;font-weight: 350;"></div>
     </div>
-    <div class="fl w-50" style="text-align:center">
+    <div class="fl w-100 w-50-ns" style="text-align:center">
       <img src='./metro_logo.svg' alt="metro" class="clip-m" style ="margin: auto; height: 5rem; margin-left: 15%; margin-right: 10%"></img>
-      <div id="transitInput" style="margin-top:1px; padding:5px; margin-left: 5%;font-size: 1.75rem;font-weight: 350;"></div>
+      <div id="transitInput" style="padding-top:2px; padding:5px; margin-left: 5%;font-size: 1.75rem;font-weight: 350;"></div>
       <div id="transitCost" style=" padding:5px; margin-left: 5%;font-size: 1.75rem;font-weight: 350;"></div>
       <div id="walkingInput" style="font-size: 1.75rem;font-weight: 350;"></div>
     </div>
   </article>
-  <div class=" dib w-100 pa4" style="text-align:center; margin-top: 3rem;">
+  <div class=" dib w-100 pa4" style="text-align:center; padding-top: 3rem;">
   <div id="transitFee" style="font-size: 1rem;font-weight: 350;"></div>
-  <div id="theButton"><p class="f3" style="margin-top:10rem">Oops, looks like someone forgot their address...</p>
+  <div id="theButton"><p class="f3" style="padding-top:10rem">Oops, looks like someone forgot their address...</p>
     <button id="next-button"><a href="#addressForm" class="scrollitem">Back</a></button></div>
   </div>
-<div class="dib w-100" style="margin-top: 50px; text-align:center;">
+<div class="dib w-100" style="padding-top: 50px; text-align:center;">
 <!-- <div id="routesSection"></div> -->
 <ol id="panel"></ol>
 </div>
 </div>
+<!-- FOOTER -->
+  <div>
+  <img src='./LA_skyline.svg' alt="LA skyline"></img>
+  <div class="dib w-100 mt2" style="text-align:center">
+    <p class="dib" style="padding-bottom:1rem; font-size:1.25rem; font-weight:300 "> <a id="aboutlink2" href="https://github.com/eliserothberg">Elise</a> && <a id="aboutlink2" href="https://github.com/kelasol">Kelena</a> && <a id="aboutlink2" href="https://github.com/wandiliu">Wandi</a> </p>
+  </div>
 </div>
 
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/transition.js"></script>
+
 
 </body>
 
 
-<!-- FOOTER -->
-</div id="footer">
-
-  <div>
-  <img src='./LA_skyline.svg' alt="LA skyline"></img>
-  <div class="fl w-100 mt2" style="text-align:center">
-    <p class="dib" style="margin-bottom:1rem; font-size:1.25rem; font-weight:300 "> <a id="aboutlink2" href="https://github.com/eliserothberg">Elise</a> && <a id="aboutlink2" href="https://github.com/kelasol">Kelena</a> && <a id="aboutlink2" href="https://github.com/wandiliu">Wandi</a> </p>
-  </div>
-</div>
 </html>

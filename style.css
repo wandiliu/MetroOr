@@ -8,7 +8,7 @@ nav{
 }
 #map {
     width: 80%;
-    height: 300px;
+    height: 400px;
     margin:auto;
     border-radius: 10px;
     /*border-color:  #95989A;
@@ -160,23 +160,21 @@ a:visited{
 }
 
 #footer {
-    display: inline-block;
     width: 100%;
     height : 0px;
     position:absolute;
     bottom:0;
-
 }
 
 #instructions{
   text-align: center;
-  font-weight:300;
-  font-size:1.5rem;
+  font-weight:350;
+  font-size:1.75rem;
 }
 
 label {
   text-align:left;
-  font-weight:250;
+  font-weight:300;
   font-size:1.25rem;
   padding-right: 30px;
 }
@@ -287,6 +285,30 @@ label {
   margin: 0;
   font-size: 1.75rem;
   font-weight: 350;
+  letter-spacing: 1px;
+}
+
+@media screen and (min-width: 20em) and (max-width: 60em) {
+ .clip-m { position: fixed !important; position: absolute !important; clip: rect( 1px 1px 1px 1px ); /* IE6, IE7 */ clip: rect( 1px, 1px, 1px, 1px ); }
+}
+
+.cf:before, .cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    *zoom: 1;
+}
+
+@media screen and (min-width:50em) {
+    .w-50-ns {
+        width: 50%;
+    }
 }
 
 /*
