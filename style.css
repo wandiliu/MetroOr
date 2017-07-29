@@ -155,6 +155,9 @@ a:visited{
 
 }
 
+#codeFor {
+  color: #4578cc;
+}
 
 #footer {
     display: inline-block;

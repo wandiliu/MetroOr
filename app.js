@@ -376,9 +376,8 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 
   //function to extract transit data from google map API JSON object and extract transit information
   function nonMetro(result) {
-    document.getElementById('routesSection').innerHTML = '<p id="instructions" style="font-weight:400; font-size=3rem">Here are your routes:</p>';
-    if
-      (!result.routes[0]) {
+    // document.getElementById('routesSection').innerHTML = '<p id="instructions" style="font-weight:400; font-size=3rem">Here are your routes:</p>';
+    if (!result.routes[0]) {
       document.getElementById('walkingInput').innerHTML = "&nbsp; &nbsp; &nbsp;  (And Google considers the distance too far to walk.)";
     }
     else {
