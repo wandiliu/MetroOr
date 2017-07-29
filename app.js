@@ -74,6 +74,8 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
     var place = autocomplete.getPlace();
     if (!place.place_id) {
       window.alert("Please select an option from the dropdown list.");
+            // document.getElementById('addressInput').innerHTML = "Please select an option from the dropdown list.";
+
       return;
     }
     if (mode === 'ORIG') {
@@ -150,9 +152,9 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 
     //set up values for display
     if (times.length == 2) {
-      var x = "<p id='instructions' style='margin-bottom:2rem; margin-top:5rem;'>Your Routine</p> <br> <p id='resText'> Depart for work from <b>" + homeAddress.slice(0, -15) + "</b> at <b>" + times[0] + "</b></p>"
+      var x = "<p id='instructions' style='margin-bottom:2rem; margin-top:5rem;'>Your Routine</p><p id='resText'> Home Address: <b>" + homeAddress.slice(0, -15) + "</b> at <b>" + times[0] + "</b></p>"
       theInput.push(x);
-      var y = "<p id='resText'><br> Return for home from <b>" + workAddress.slice(0, -15) + "</b> at <b>" + times[1] + "</b></p> <p id='instructions' style='margin-bottom:3rem; margin-top:7rem;'>Our Verdict</p>";
+      var y = "<p id='resText'>Work Address: <b>" + workAddress.slice(0, -15) + "</b> at <b>" + times[1] + "</b></p> <p id='instructions' style='margin-bottom:3rem; margin-top:7rem;'>Our Verdict</p>";
       theInput.push(y);
     }
   }
@@ -283,7 +285,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       if ((totalTravelTime && timeToHome) && (annualTransitTime.length == 2 || annualDriveTime.length == 2)) {
         var a = ("<br>" + theMode + "<br><br> Approximately " + distanceAndTime);
         theInfo.push(a);
-        var b = ("<br><br> <b>" + totalTravelTime + "</b> spent commuting.");
+        var b = ("<br><br> <b>" + totalTravelTime + "<br></b> spent commuting.");
         theInfo.push(b);
       }
 
