@@ -2,12 +2,15 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MetroOrDrive</title>
   <link rel="stylesheet" type="text/css" href="style.css">
   <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
   <script type="text/javascript" src="app.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC49l21opGjGaAvpfhvInZgL3ORHV63pxo&libraries=places&callback=initMap" async defer></script>
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
+  <link rel="stylesheet" href="http://unpkg.com/tachyons-visibility@2.0.5/css/tachyons-visibility.min.css" />
+
 
 </head>
 
@@ -15,30 +18,30 @@
 
   <!-- NAV BAR -->
 
-    <nav>
-    <ul class='list fl w-100 pa2'>
-    <div class='fl-l' style="padding-right: 66%; padding-left: 50px ">
-      <li><a href="./old_index.html" class='link dim'>MetroOrDrive</a></li>
+    <nav class="db dt-l w-100 border-box pa3 ph5-l mt2">
+    <div class='db dtc-l v-mid mid-gray link dim w-100 w-25-l tc tl-l mb2 mb0-l'>
+      <a href="./old_index.html" class='link dim'>MetroOrDrive</a>
     </div>
-    <div class='fl-r' style="padding-right: 50px">
-      <li class='dib'><a href="#About" class='link dim'>About</a></li>
-  <li class='dib ml4'><a href="http://codingforproduct.com/" class='link dim'>Coding For Product</a></li>
-    </div>
-    </ul>
+    <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+    <!-- <div class='fl-r' style="text-align: right;padding-right: 3%"> -->
+    <a href="#About" class='link dim'>About</a>
+<a href="http://codingforproduct.com/" class='link dim ml4'>Coding For Product</a>
+    <!-- </div> -->
+  </div>
   </nav>
 
   <!-- MAIN UI -->
 
-   <div id="begin" style = "padding-top: 220px">
+   <div id="begin" style = "padding-top: 10rem">
 
   <!-- INTRO TEXT -->
 
    <div class="dib w-100 pa2">
    <div style ="text-align: center;">
-     <img src='./metro.svg' alt="commute" style ="margin: auto; width: 16%"></img>
+     <img src='./metro.svg' alt="commute" style ="margin: auto; height: 9rem"></img>
      <br>
    <h1 class="f2 mt4">Welcome to MetroOrDrive, a tool to help you discover the best way to commute.</h1>
-   <button id="next-button"><a href="#timeForm">Let's start</a></button>
+   <button id="next-button"><a href="#timeForm">Let's begin</a></button>
 
    </div>
   </div>
@@ -55,9 +58,9 @@
       <!-- RIGHT SIDE TIME FORM -->
 
        <div id="timeForm" class="dib w-100 pa2" style="text-align:center">
-         <div style="margin-top:230px"></div>
-         <div class = "fl-l w-50" style="margin-top:20px">
-           <img src='./clocks.svg' alt="clocks" style ="margin: auto; width: 100%; padding-left: 60px;"></img>
+         <div style="margin-top:15rem"></div>
+         <div class = "fl-l w-50" style="margin-top:2rem">
+           <img src='./clocks.svg' alt="clocks" class="clip-m" style ="margin: auto; width: 100%; margin-left: 10%;"></img>
          </div>
          <div class="mt3">
            <p id="instructions">First, tell us about your daily schedule:</p>
@@ -71,7 +74,8 @@
            <label>When do you leave work? (ie. 6:00 PM)</label> <br>
              <input type="time" name="fromWork" id="leave-work" placeholder="6:00 AM" class ="mt1" />
              <br>
-             <button id="next-button"><a href="#addressForm">Continue</a></button>
+             <div style="text-align:center;">
+ <button id="next-button"><a href="#addressForm">Continue</a></button></div>
 
          </div>
          <!-- <div class="mt3">
@@ -82,16 +86,13 @@
 <!-- End of Time Section-->
 
 
-<div id="addressForm" style="margin-top:150px"></div>
+<div id="addressForm" style="margin-top:15rem"></div>
 
 <!-- Address Section -->
- <div class="fl w-100 pa5">
-      <div class="w-50" style="text-align:center">
+ <div class="fl w-100 pa2" style="margin-top:3rem">
         <p id="instructions">Now, enter your starting point and destination:</p>
         <input id="home-input" class="controls" type="text" placeholder="Your Home Address">
-        <input id="work-input" class="controls" type="text" placeholder="Your Workplace Address">
-
-      </div>
+        <input id="work-input" class="controls" type="text" placeholder="Your Work Address">
       <br>
 
 
@@ -102,15 +103,15 @@
 
     <div>
       <div id="showMap"></div>
-        <button id="next-button" style="margin-top:0px"><a href="#results">See my verdict</a></button>
+        <button id="next-button" style="margin-top:3rem"><a href="#results">Metro or Drive?</a></button>
     </div>
   </div>
 </div>
 
 <!-- results -->
-<div id="results" style="margin-bottom:175px"></div>
-<div class="dib w-100" style="text-align:center">
-  <div id="resultSection" class="f3"> <p>Oops, looks like someone forgot their address...</p>
+<div id="results" style="margin-bottom:12rem"></div>
+<div class="dib w-100" style="text-align:center;">
+  <div id="resultSection" class="f3" style="margin-top:7rem"> <p>Oops, looks like someone forgot their address...</p>
     <button id="next-button" style="margin-top:0px"><a href="#addressForm">Back</a></button>
 </div>
   <div id="homeInput"></div>
