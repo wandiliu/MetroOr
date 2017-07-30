@@ -7,13 +7,10 @@ nav{
 
 }
 #map {
-    width: 80%;
-    height: 400px;
+    width: 90%;
+    height: 500px;
     margin:auto;
     border-radius: 10px;
-    /*border-color:  #95989A;
-    border-style: solid;
-    border-width: thin;*/
 }
 
 div{
@@ -29,22 +26,16 @@ h1{
    color: #2F3541;
 }
 
-/*.button{
-  margin:auto; display:block;
-  margin-top: 200px;
-  margin-bottom: 200px;
-  background-color: #95989A;
-  height: 50px;
-  width:200px;
-  font-size: 1.25rem;
+button{
   margin-bottom: 1rem;
   padding: 0.6rem;
+  background-color: transparent;
+  width: 200px;
+  border-style: solid;
+  border-width: 0.25px;
+  border-color: #95989A;
   border-radius: 50px;
-}*/
-/*
-.button:hover{
-  background-color: #2F3541;
-}*/
+}
 
 a{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -85,45 +76,8 @@ input[type='text']{
   font-weight: 300;
 }
 
-/*input[type='submit']{*/
-  /*margin-top: 3rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size:1rem;
-  font-weight: 300;
-  color:#2F3541;
-  border-color: #2F3541;
-  border-width: 2px;
-  height: 50px;
-  width:200px;
-  font-size: 1.25rem;
-  margin-top: 2rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 275;
-  margin-bottom:
-  padding: 0.6rem;
-  border-radius: 50px;*/
-  /*text-decoration: none;
-  margin-top: 2rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 275;
-  color:#2F3541;
-  border-color: #2F3541;
-  background-color: transparent;
-  height: 50px;
-  width:200px;
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  border-radius: 50px;
-  border-width: 2px;
-}*/
-/*
-input[type='submit']:hover{
-  color:#FFFFFF;
-  background-color: #2F3541;
-}*/
 
 a:link{
-  text-decoration: none;
   letter-spacing: none;
   font-weight: 400;
   font-size: 1.1rem;
@@ -133,47 +87,24 @@ a:visited{
   color:inherit;
 }
 
-#next-button{
-  text-decoration: none;
-  margin-top: 1em;
-  margin-bottom: 3em;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 275;
-  color:#2F3541;
-  border-color: #2F3541;
-  background-color: transparent;
-  height: 45px;
-  width:200px;
-  font-size: 1.25rem;
-  border-radius: 50px;
-}
-
-#next-button:hover{
-  background-color: #2F3541;
-  color:#FFFFFF;
-
-}
-
-#codeFor {
-  color: #4578cc;
-}
-
 #footer {
+    display: inline-block;
     width: 100%;
-    height : 0px;
+    height : 60px;
     position:absolute;
     bottom:0;
+
 }
 
 #instructions{
   text-align: center;
-  font-weight:350;
-  font-size:1.75rem;
+  font-weight:300;
+  font-size:1.5rem;
 }
 
 label {
   text-align:left;
-  font-weight:300;
+  font-weight:250;
   font-size:1.25rem;
   padding-right: 30px;
 }
@@ -187,12 +118,24 @@ label {
 #homeInput,
 #workInput {
   font-weight: 350;
-  font-size:1.75rem;
+  font-size:1.25rem;
   color: #2F3541;
 }
 #transitCost,
 #drivingCost {
   margin-top: 10px;
+}
+
+.button {
+  font-size: 16px;
+  margin:auto; display:block;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-color:transparent;
+  background-color: #2F3541;
+  height: 50px;
+  color: white;
+  font-size: 1.25rem;
 }
 
 .controls {
@@ -217,18 +160,12 @@ label {
   margin-left: 30px;
   margin-top:20px;
   text-overflow: ellipsis;
-  width: 40%;
-
+  width: 350px;
 }
 
 #home-input:focus,
 #work-input:focus {
   border-color: #4d90fe;
-}
-
-#transitFee {
-  font-size: 14px;
-  margin-top: 10px;
 }
 
 #panel li:before{
@@ -252,87 +189,12 @@ label {
   content:'Transit Home';
   color:#000;
 }
-.wrapper {
-    height: 100%;
-}
-.page {
-    float:left;
-    min-height: 100%;
-}
-#aboutlink{
-  font-size: 1.75rem;
-  font-weight: 300;
-  color: #f07377;
-}
-#aboutlink:hover{
-  font-style: italic;
-  background-color: #f07377;
-  color: #ffdc8a;
-}
-#aboutlink2{
-  font-size: 1.25rem;
-  font-weight: 300;
-  color: #f07377;
-}
-#aboutlink2:hover{
-  font-style: italic;
-  background-color: #f07377;
-  color: #ffdc8a;
+
+div.adp-summary {
+  font-size: 0px;
 }
 
-#resText{
-  margin: 0;
-  font-size: 1.75rem;
-  font-weight: 350;
-  letter-spacing: 1px;
-}
-
-@media screen and (min-width: 20em) and (max-width: 60em) {
- .clip-m { position: fixed !important; position: absolute !important; clip: rect( 1px 1px 1px 1px ); /* IE6, IE7 */ clip: rect( 1px, 1px, 1px, 1px ); }
-}
-
-.cf:before, .cf:after {
-    content: " ";
-    display: table;
-}
-
-.cf:after {
-    clear: both;
-}
-
-.cf {
-    *zoom: 1;
-}
-
-@media screen and (min-width:50em) {
-    .w-50-ns {
-        width: 50%;
-    }
-}
-
-@media only screen and (max-width: 320px) {
-
-  #resText{
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 250;
-  }
-  #drivingInput,
-  #transitInput,
-  #walkingInput,
-  #drivingCost,
-  #transitCost,
-  #homeInput,
-  #workInput {
-    font-weight: 250;
-    font-size:1rem;
-    color: #2F3541;
-  }
-  #transitCost,
-  #drivingCost {
-    margin-top: 10px;
-  }
-
-}
-
-/*
+/*#transitFee {
+  font-size: 14px;
+  margin-top: 10px;
+}*/
