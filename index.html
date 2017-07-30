@@ -1,94 +1,140 @@
 <!DOCTYPE html>
 <html>
 
-<title>Metro Or Drive?</title>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC49l21opGjGaAvpfhvInZgL3ORHV63pxo&libraries=places&callback=initMap" async defer></script>
-<link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
-<body>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metro Or Drive</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
+  <script type="text/javascript" src="app.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC49l21opGjGaAvpfhvInZgL3ORHV63pxo&libraries=places&callback=initMap" async defer></script>
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
 
-<!-- NAV BAR -->
 
-  <nav>
-  <ul class='list fl w-100 pa2'>
-  <div class='fl-l' style="padding-right: 900px; padding-left: 30px ">
-    <li><a href="#MOD" class='b link dim'>MetroOrDrive</a></li>
+</head>
+
+<body >
+
+  <!-- NAV BAR -->
+    <nav class="db dt-l w-100 border-box pa3 ph5-l mt3">
+    <div class='db dtc-l v-mid mid-gray link dim w-100 w-25-l tc tl-l mb2 mb0-l'>
+      <a href="./old_index.html" class='link dim'>MetroOrDrive</a>
+    </div>
+    <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+    <a href="./about.html" class='link dim'>About</a>
   </div>
-  <div class='fl-r'>
-    <li class='dib'><a href="#About" class='link dim'>About</a></li>
-<li class='dib ml4'><a href="#CFP" class='link dim'>Coding For Product</a></li>
+  </nav>
+
+
+  <!-- MAIN UI -->
+
+<div class="wrapper">
+
+  <!-- INTRO TEXT -->
+  <div id="begin" class="page">
+    <div style = "padding-top: 12%">
+   <div class="dib w-100 pa2">
+   <div style ="text-align: center;">
+     <img src='./img/metro.svg' alt="commute" style ="margin: auto; height: 9rem"></img>
+     <br>
+   <h1 class="f2 mt4">Welcome to MetroOrDrive, a tool to help you discover the best way to commute.</h1>
+   <a href="#timeForm" id="next-button" class="scrollitem selected grow no-underline br-pill ba bw1  pv2  dib near-black">Let's begin</a>
+
+   </div>
   </div>
-  </ul>
-
-</nav>
-
-<br>
-
-<
-<!-- MAIN UI -->
- <div style = "padding-top: 150px">
-
-<!-- LEFT SIDE TEXT -->
-
- <div class="fl w-50 pa2">
- <div style ="padding-left:30px; text-align: left ;padding-top: 25px">
- <h1>Welcome to MetroOrDrive, a tool to help you find the best way to commute.</h1>
- </div>
+</div>
 </div>
 
-<!-- RIGHT SIDE TIME FORM -->
-<div class="fl dib w-50 pa2">
-  <div>
-    <p class="b">First, tell us your daily schedule:</p>
-    <br>
-    <label>Leave home:</label> <br>
-      <input type="time" name="fromHome" id="leave-home" />
-    <br>
-    <label>Leave work:</label> <br>
-      <input type="time" name="fromWork" id="leave-work" />
+      <!-- RIGHT SIDE TIME FORM -->
+  <div class="page" id="timeForm">
+    <div style = "padding-top: 10%">
+       <div class="dib w-100 pa2" style="text-align:center">
+         <div style="padding-top:2%"></div>
+         <div class = "fl-l w-50" style="padding-top:2em">
+           <img src='./img/clocks.svg' alt="clocks" class="clip-m" style ="margin: auto; width: 100%; margin-left: 10%;"></img>
+         </div>
+         <div class="mt3"></div>
+           <p class="dib" id="instructions">First, tell us about your daily schedule:</p>
+           <br>
+           <div class="dib">
+           <label>When to leave home? (default: 8:00 AM)</label>
+           <br>
+             <input type="time" name="fromHome" id="leave-home" placeholder="8:00 AM" class ="mt1"/>
+           <br>
+           <div class="mt3"></div>
+           <label>When to leave work? (default: 6:00 PM)</label> <br>
+             <input type="time" name="fromWork" id="leave-work" placeholder="6:00 AM" class ="mt1" />
+             <br>
+           </div>
+             <div style="text-align:center;"><a id="next-button" class="scrollitem grow no-underline br-pill ba bw1  pv2  dib near-black" style="margin-top:2em" href="#addressForm">Continue</a></div>
+           </div>
+         </div>
+         </div>
+
+<!-- End of Time Section-->
+
+
+<!-- Address Section -->
+<div class="page" id="addressForm" >
+ <div class="fl w-100" style="padding-top:2%" >
+        <p id="instructions">Now, enter your starting point and destination,
+        <br>and select them from the dropdown menu:</p>
+        <input id="home-input" class="controls" type="text" placeholder="Home address">
+        <input id="work-input" class="controls" type="text" placeholder="Work address">
+        
       <br>
-    <label>default: 8:00 AM - 06:00 PM</label>
-
-    <div>
-<!-- RIGHT SIDE ADDRESS FORM -->
-<input id="home-input" class="controls" type="text" placeholder="Enter your home address">
-      <input id="work-input" class="controls" type="text" placeholder="Enter your work address">
-      <div id="map"></div>
-
+<!-- show map -->
     </div>
 
-    <br>
-
-
-
-    <div id="homeInput"></div>
-    <div id="workInput"></div>
-    <div id="drivingInput"></div>
-    <div id="drivingCost"></div>
-    <div id="transitInput"></div>
-    <div id="transitCost"></div>
-    <div id="walkingInput"></div>
-    <div id="transitFee"></div>
-    <div id="theButton"></div>
-    <br>
-
-
+    <div>
+      <div id="map" align="center"></div>
+      <div id="showMap"></div>
+      </div>
+      <div style="text-align:center; margin-top:2em"> <a href="#results" id="next-button" class="scrollitem grow no-underline br-pill ba bw1  pv2  dib near-black">Results</a></div>
   </div>
 
+
+<!-- results -->
+<div class="page" id="results" style="padding-top: 5rem;">
+  <div style="text-align:center">
+  <div id="resultSection" class="f3"></div>
+  <div id="homeInput"></div>
+  <div id="workInput"></div>
+  <article class="cf" style="text-align:center; margin-left:10%; margin-right:10%;">
+    <div class="fl w-100 w-50-ns" style="text-align:center" >
+      <div id="carLogo"></div>
+      <div id="drivingInput" style="padding:5px; margin-right: 5%; "></div>
+      <div id="drivingCost" style="padding:5px; margin-right: 5%;"></div>
+    </div>
+    <div class="fl w-100 w-50-ns" style="text-align:center">
+      <div id="metroLogo"></div>
+      <div id="transitInput" style="padding-top:2px; padding:5px; margin-left: 5%;"></div>
+      <div id="transitCost" style=" padding:5px; margin-left: 5%;"></div>
+      <div id="transitFee" style="font-size: 1rem;font-weight: 350;"></div>
+      <div id="walkingInput" ></div>
+    </div>
+  </article>
+  <div class=" dib w-100 pa4" style="text-align:center; padding-top: 3rem;">
+  <div id="theButton"><p class="f3" style="padding-top:3em">Oops, looks like someone forgot their address...
+    <div style="text-align:center"><a href="#addressForm" id="next-button" class="scrollitem grow no-underline br-pill ba bw1  pv2  dib near-black">Back</a></div></div>
+  </div>
+<div class="dib w-100" style="padding-top: 50px; text-align:center;">
+</div>
+</div>
+<!-- FOOTER -->
   <div>
-    <div id="showMap"></div>
-    <ol id="panel"></ol>
+  <img src='./img/LA_skyline.svg' alt="LA skyline"></img>
+  <div class="dib w-100 mt2" style="text-align:center">
+    <p class="dib" style="padding-bottom:1rem; font-size:1.25rem; font-weight:300 "> <a id="aboutlink2" href="https://github.com/eliserothberg">Elise</a> &amp; <a id="aboutlink2" href="https://github.com/kelasol">Kelena</a> &amp; <a id="aboutlink2" href="https://github.com/wandiliu">Wandi</a> </p>
   </div>
 </div>
- </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/transition.js"></script>
 
 
-
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
- <script src="js/transition.js"></script>
 </body>
 
-<!-- FOOTER -->
-<div class='footer bottom-0 absolute w-100'>
-<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjMyIDczMS4wMDQgMTkxOS44NzUgMzUwLjI4OCI+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5jbHMtMSB7CiAgICAgICAgZmlsbDogI2NiY2JjYjsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPHBhdGggaWQ9IlBhdGhfMTAiIGRhdGEtbmFtZT0iUGF0aCAxMCIgY2xhc3M9ImNscy0xIiBkPSJNMCwxMDQxLjJsMTcuODA3LDIuNjE5LDE3LjYtMi42MTksMTIuMTg0LTUuOSwxNy4xMDUtMy4zMjJIODguMjM2djMuMzIyaDI0Vjk3My41M2gxMi4yODF2LTUuODY0aDI2Ljg0djUuODY0aDEwLjcyOVYxMDM1LjNIMTk5LjAydjUuOUgyMDUuMXYyOC4zMzRoNC4wNjh2LTQ2LjA3SDIzNi42Vjk5Mi40MjVoOS4zNjl2LTYuMzcySDI1MC4ydi01Ljc3aDEyLjg1OXY1Ljc3aDYuMXY0LjIxM2g4LjQxMnY1LjMxOWg1Ljkzdi01LjMxOWg4LjI1OHY1LjMxOWgzLjAyOXY0OC4yMzRoNy40MjR2Ny40aDYuNzI5VjgyMS4xNjloNjEuNDczdjcyLjgwNmw0LjkzNC0yLjJWODU5LjUxNmwzLjI3OS0zLjYxOVY4MjEuMTY5aDc0LjF2MTIuNDQ0aDEwLjg5NWwzLjU0NSw0LjRoMTYuNDI2djI1LjY5NWg0Ljg0NGw0LjI3NS00LjE5NGgxMi4wMjN2NC4xOTRoMjQuNjQ4djE4Ny41MTFoOS42NDZ2LTM2bDUuMTQzLTMuNTU5aDQuNlY5MzQuOTc2bDUuNDUxLTYuNTkyaDguNjg4djYuNTkyaDQuNjQxbC00LjY0MSwxNC44aDUzLjAxNFY4NjguMDM2aDYuODA5di00LjMyNmgxMS40ODZWODQ4LjM3MmgzNS4yODl2MTUuMzM5aDMuODE4Vjg0OC4zNzJoMy43MTV2LTI3LjJoNi42MzNWNzgwLjQzOGgzLjQ3NVY3NDguMjcyTDY5Ni40NTUsNzQ2aDI4LjcxM3YzNC40MzRoMy42djQwLjczMWg0LjcyNVY4NDUuMjFoNi4wMzl2NDYuNTYyaDIyLjR2NjcuMDg3aDUuOTU1djIwLjA5M2wyLjk2OSwyMS41aDE2LjA1M3Y1LjUxaDkuN2wyLjM3MSw1NS4wMzMsMTMuMzU5LDMuMjMzSDgyNy4zNGwzLjU0NS0zLjIzM1Y5MjguMzg0aDE4LjE0MXYtNC4yMTdoMTMuNjkzVjkwNS40NzRsMTIuMzg3LDIuMjA5aDguNDM2Vjg2OC4wMzZoNzYuMzc1djExNC4ybDUuNS01Ljc2NmgxMi4zNjlsNS4zMjgtMi4yMjdoNi44di0xMDYuMmgyNy4zMjRWODEyLjU4NWg2NC40Mzl2MjA3LjNoMzkuMjA5djguMzQ4aDM2LjA1N1Y5NTEuMjUxaDIuNzY4VjkyOC4zODRoMS4zNjdsLTEuMzY3LTI3LjNoMi4zMTlsLS45NTItMjIuMDU0aDQuOTg4di0xMC4zaDEuNTA5di01LjE5NWgzLjF2LTUuMDczaDM2Ljc4MmwzLjM3NSwxLjI3NnYzLjhoMi4xdjYuNjg2aDIuNDYxdjguODEyaDQuNjUxbDIuNzU4LDEzNy4zODFIMTIzNXYtNC45NzJoMi4zdi0yLjc2N2wyLjQzNy0yLjg1NlY5NzNoMjcuNjgydi0zLjkyM2gyOC4wOTFWOTczaDIzLjU1MXY4OC44aDExLjk4N2wzLjM3Ni01LjMwNWg1Ljk5NGwtMS4xMTMtNDEuNDE1aDI3LjkwOGwyLTIuNzc3di0uODcxbDUuNzItNC4zNiw0Ljg0MywzLjI1MlY5MzAuMzU2aDkuMTY4bDMuMTktNi42NzJoMTEuNjI3djEuMTg5aDI0LjU2OXYtMS4xODloMTEuN2wzLjg0NCw2LjY3Mmg3LjI4MXY5Mi4xODJoMzQuMTcyVjk2Mi4zNjNoMi42MzZWOTEzLjgxN2gxLjY4NVY4ODAuNjI4aDIuODN2LTkuMDg3aDU0LjQ3N2wxLjcsMTAuMzg3djQyLjk0NWg0NC45bC0xLjIwOSwzNC45MWgyLjg0MXY1NS44ODNoMTkuNWwxLjE3LDkuOTg4aDMuNzE2bC44NjUsMjMuMDk1aDMuODczdi0xOC4wMzJoMzUuNDI4di01LjA2M0gxNjkwLjR2NS4wNjNoMy44MzJWMTA2Ny4zaDIxLjgyMWwxLjUzNC0xMTIuNDI1LDE0Ljc0OC02LjI5MmgzMS4xN2wxNi4wMTgsNi4yOTJ2NzQuNTRoMzAuMDR2MjYuMzc4aDE0Ljg2M3YxNC4wNzhoMjIuN3MuMy0xNC43ODgsMC0xOS42MzQsMS4zMTMtNi4xNDgsMS4zMTMtNi4xNDh2LTYuNDM1aDguMzg3di0xOC45ODlsNS45MzItMS41MTlWOTk1Ljk5MmwxLjA2My00LjU0Miw0LjEzMSw4LjgyNnYxNS43NzFsNi41NTUsMi42MnYxOC45ODloOC43NHYzMi4yMTdoOS45NzZ2MTIuMTMzaDI2LjY1djE0LjA1MkwwLDEwOTYuMjkyWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzIgLTE1KSIvPgo8L3N2Zz4K" alt="LA skyline"></img>
-</div>
+
 </html>
