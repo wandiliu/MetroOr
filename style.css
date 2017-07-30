@@ -169,6 +169,8 @@ a:visited{
   text-align: center;
   font-weight:350;
   font-size:1.75rem;
+  padding-left: 5%;
+  padding-right: 5%
 }
 
 label {
@@ -280,6 +282,9 @@ label {
   color: #ffdc8a;
 }
 
+#abouttext{
+  text-align: left; font-size:1.75rem; letter-spacing: 1px;padding-left:10%; padding-right: 10%; margin-left:100px; margin-right:100px; margin-bottom:3rem;
+}
 #resText{
   margin: 0;
   font-size: 1.75rem;
@@ -287,7 +292,7 @@ label {
   letter-spacing: 1px;
 }
 
-@media screen and (min-width: 20em) and (max-width: 60em) {
+@media screen and (min-width: 300px) and (max-width: 600px) {
  .clip-m { position: fixed !important; position: absolute !important; clip: rect( 1px 1px 1px 1px ); /* IE6, IE7 */ clip: rect( 1px, 1px, 1px, 1px ); }
 }
 
@@ -310,12 +315,24 @@ label {
     }
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (min-width: 320px) and (max-width: 720px) {
+
+  h1{
+    font-size: 1.75rem;
+    font-weight: 300;
+  }
+
+  #instructions{
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
 
   #resText{
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-weight: 250;
+    padding-left: 5%;
+    padding-right: 5%;
   }
   #drivingInput,
   #transitInput,
@@ -325,12 +342,32 @@ label {
   #homeInput,
   #workInput {
     font-weight: 250;
-    font-size:1rem;
+    font-size:1.25rem;
     color: #2F3541;
+    padding-left: 5%;
+    padding-right: 5%;
   }
   #transitCost,
   #drivingCost {
     margin-top: 10px;
+  }
+
+  #map{
+    height: 250px;
+  }
+
+  #abouttext{
+    font-size: 1.25rem;
+    font-weight: 300;
+    margin: 0;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  #aboutlink{
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #f07377;
   }
 
 }
