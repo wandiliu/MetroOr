@@ -11,13 +11,10 @@ nav{
     height: 400px;
     margin:auto;
     border-radius: 10px;
-    /*border-color:  #95989A;
-    border-style: solid;
-    border-width: thin;*/
 }
 
 div{
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   font-size:1rem;
   color: #2F3541;
@@ -28,23 +25,6 @@ h1{
    font-size:2rem;
    color: #2F3541;
 }
-
-/*.button{
-  margin:auto; display:block;
-  margin-top: 200px;
-  margin-bottom: 200px;
-  background-color: #95989A;
-  height: 50px;
-  width:200px;
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  padding: 0.6rem;
-  border-radius: 50px;
-}*/
-/*
-.button:hover{
-  background-color: #2F3541;
-}*/
 
 a{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -85,43 +65,6 @@ input[type='text']{
   font-weight: 300;
 }
 
-/*input[type='submit']{*/
-  /*margin-top: 3rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size:1rem;
-  font-weight: 300;
-  color:#2F3541;
-  border-color: #2F3541;
-  border-width: 2px;
-  height: 50px;
-  width:200px;
-  font-size: 1.25rem;
-  margin-top: 2rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 275;
-  margin-bottom:
-  padding: 0.6rem;
-  border-radius: 50px;*/
-  /*text-decoration: none;
-  margin-top: 2rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 275;
-  color:#2F3541;
-  border-color: #2F3541;
-  background-color: transparent;
-  height: 50px;
-  width:200px;
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  border-radius: 50px;
-  border-width: 2px;
-}*/
-/*
-input[type='submit']:hover{
-  color:#FFFFFF;
-  background-color: #2F3541;
-}*/
-
 a:link{
   text-decoration: none;
   letter-spacing: none;
@@ -135,18 +78,17 @@ a:visited{
 
 #next-button{
   text-decoration: none;
-  margin-top: 2rem;
+  margin-top: 1em;
+  margin-bottom: 3em;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 275;
   color:#2F3541;
   border-color: #2F3541;
   background-color: transparent;
-  height: 50px;
+  height: 45px;
   width:200px;
   font-size: 1.25rem;
-  margin-bottom: 1rem;
   border-radius: 50px;
-  border-width: 2px;
 }
 
 #next-button:hover{
@@ -188,7 +130,7 @@ label {
 #homeInput,
 #workInput {
   font-weight: 350;
-  font-size:1.25rem;
+  font-size:1.75rem;
   color: #2F3541;
 }
 #transitCost,
@@ -230,28 +172,6 @@ label {
 #transitFee {
   font-size: 14px;
   margin-top: 10px;
-}
-
-#panel li:before{
-  padding: 3px;
-  display:block;
-  color:#fff;
-  font-weight:bold;
-}
-
-#panel li:nth-child(1):before{
-  content:'Driving To Work';
-}
-#panel li:nth-child(2):before{
-  content:'Driving Home';
-}
- #panel li:nth-child(3):before{
-  content:'Transit to Work';
-  color:#000;
-}
-#panel li:nth-child(4):before{
-  content:'Transit Home';
-  color:#000;
 }
 .wrapper {
     height: 100%;
@@ -309,6 +229,31 @@ label {
     .w-50-ns {
         width: 50%;
     }
+}
+
+@media only screen and (max-width: 320px) {
+
+  #resText{
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 250;
+  }
+  #drivingInput,
+  #transitInput,
+  #walkingInput,
+  #drivingCost,
+  #transitCost,
+  #homeInput,
+  #workInput {
+    font-weight: 250;
+    font-size:1rem;
+    color: #2F3541;
+  }
+  #transitCost,
+  #drivingCost {
+    margin-top: 10px;
+  }
+
 }
 
 /*

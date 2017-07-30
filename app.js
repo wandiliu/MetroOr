@@ -49,7 +49,7 @@ function AutocompleteDirectionsHandler(map) {
     //customize render so there's no line drawn and the icon is different
                         polylineOptions : {strokeColor:'rgba(0,0,0,0)'},
                           markerOptions: {
-                            icon: 'red.png'
+                            icon: 'img/red.png'
                           }
                         }),
 
@@ -74,8 +74,6 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
     var place = autocomplete.getPlace();
     if (!place.place_id) {
       window.alert("Please select an option from the dropdown list.");
-            // document.getElementById('addressInput').innerHTML = "Please select an option from the dropdown list.";
-
       return;
     }
     if (mode === 'ORIG') {
@@ -152,9 +150,9 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 
     //set up values for display
     if (times.length == 2) {
-      var x = "<p id='instructions' style='margin-bottom:2rem; margin-top:5rem;'>Your Routine</p><p id='resText'> Home Address: <b>" + homeAddress.slice(0, -15) + "</b> at <b>" + times[0] + "</b></p>"
+      var x = "<p id='instructions' style='margin-bottom:2rem; margin-top:5rem;'>Your Routine</p><p id='resText'> Leave for work from <b>" + homeAddress.slice(0, -15) + "</b> at <b>" + times[0] + "</b></p>"
       theInput.push(x);
-      var y = "<p id='resText'>Work Address: <b>" + workAddress.slice(0, -15) + "</b> at <b>" + times[1] + "</b></p> <p id='instructions' style='margin-bottom:3rem; margin-top:7rem;'>Our Verdict</p>";
+      var y = "<p id='resText'>Return home from <b>" + workAddress.slice(0, -15) + "</b> at <b>" + times[1] + "</b></p> <p id='instructions' style='margin-bottom:3rem; margin-top:7rem;'>Our Verdict</p>";
       theInput.push(y);
     }
   }
@@ -173,7 +171,6 @@ AutocompleteDirectionsHandler.prototype.route = function() {
         departureTime: time
       },
       drivingOptions: {
-        //best guess or pessimistic?? maybe average them??
         trafficModel: 'pessimistic',
         departureTime: time
       },
@@ -206,7 +203,6 @@ AutocompleteDirectionsHandler.prototype.route = function() {
             r = d + h + m;
             return r;
           }
-          console.log("results = " + JSON.stringify(results))
           for (var j = 0; j < results.length; j++) {
 
             var theAddresses = originList[i].slice(0, -15) + ' to ' + destinationList[j].slice(0, -15);
@@ -321,17 +317,19 @@ AutocompleteDirectionsHandler.prototype.route = function() {
         ride = "TRANSIT: There are no public transit options for your chosen route.";
       }
       document.getElementById('resultSection').innerHTML = '<h1 class="f2 mt4">Commute Summary</h1>'
+      document.getElementById('carLogo').innerHTML = "<img src='./img/car_logo.svg' alt='drive' class='clip-m' style ='margin: auto; height: 5rem; margin-left: 10%; margin-right: 15%'></img>"
+      document.getElementById('metroLogo').innerHTML = "<img src='./img/metro_logo.svg' alt='metro' class='clip-m' style ='margin: auto; height: 5rem; margin-left: 15%; margin-right: 10%'></img>"
       document.getElementById('drivingInput').innerHTML = drive;
       document.getElementById('transitInput').innerHTML = ride;
       document.getElementById('drivingCost').innerHTML = "Annual Driving Cost: <b> $" + monetaryCost + "</b>"
       document.getElementById('homeInput').innerHTML = theInput[0] + "<br>" + theInput[1];
-      document.getElementById('theButton').innerHTML = '<button onClick="window.location.reload()"; id="next-button" style="text-align: center; display:inline-block"><a href="#begin">Start Over</a></button>'
+      document.getElementById('theButton').innerHTML = '<a onClick="window.location.reload()"; id="next-button"; class="scrollitem grow no-underline br-pill ba bw1  pv2  dib near-black" style="margin-top: 3em" href="#begin">Start Over</a>'
       }
 
     });
   }
 
-  //uncomment the following if map with routes and directions are wanted
+  //get and show map with routes and directions
   var theMap = google.maps;
   //get map that shows Los Angeles
   map = new theMap.Map(document.getElementById('map'), {
@@ -349,29 +347,25 @@ AutocompleteDirectionsHandler.prototype.route = function() {
                           map             : map,
                           preserveViewport: true,
                           polylineOptions : {strokeColor:'red'},
-                          markerOptions: {icon: 'red.png'},
-                          // panel           : document.getElementById('panel').appendChild(document.createElement('li'))
+                          markerOptions: {icon: 'img/red.png'},
                         }),
     directionsDisplay2: new theMap.DirectionsRenderer({
                           map             : map,
                           preserveViewport: true,
                           suppressMarkers : true,
                           polylineOptions : {strokeColor:'purple'},
-                          // panel           : document.getElementById('panel').appendChild(document.createElement('li'))
                         }),
     directionsDisplay3: new theMap.DirectionsRenderer({
                           map             : map,
                           preserveViewport: true,
                           polylineOptions : {strokeColor:'green'},
-                          markerOptions: {icon: 'red.png'},
-                          // panel           : document.getElementById('panel').appendChild(document.createElement('li'))
+                          markerOptions: {icon: 'img/red.png'},
                           }),
     directionsDisplay4: new theMap.DirectionsRenderer({
                           map             : map,
                           preserveViewport: true,
                           suppressMarkers : true,
                           polylineOptions : {strokeColor:'blue'},
-                          // panel           : document.getElementById('panel').appendChild(document.createElement('li'))
                           })
   },
 
@@ -390,7 +384,6 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 
   //function to extract transit data from google map API JSON object and extract transit information
   function nonMetro(result) {
-    // document.getElementById('routesSection').innerHTML = '<p id="instructions" style="font-weight:400; font-size=3rem">Here are your routes:</p>';
     if (!result.routes[0]) {
       document.getElementById('walkingInput').innerHTML = "&nbsp; &nbsp; &nbsp;  (And Google considers the distance too far to walk.)";
     }
