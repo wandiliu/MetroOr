@@ -6,7 +6,7 @@ Enter in your starting point, your destination, and your departure time and we w
 
 Team Members: Wandi Liu, Kelena Mori, Elise Rothberg
 
-Tentative Tech Stack: Express, React, Node, Javascript, Chartist (or D3 or some mapping program), Ajax, Google Maps API, Metro API, AAA API
+Tech used: Javascript, jQuery, HTML, Google Maps Autocomplete, Directions, Distance Matrix, Geolocation, and javascript APIs.
 
 
 ## Persona
