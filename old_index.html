@@ -43,7 +43,7 @@
      <img src='./metro.svg' alt="commute" style ="margin: auto; height: 9rem"></img>
      <br>
    <h1 class="f2 mt4">Welcome to MetroOrDrive, a tool to help you discover the best way to commute.</h1>
-   <button id="next-button"><a href="#timeForm" class="scrollitem selected">Let's begin</a></button>
+   <a href="#timeForm" id="next-button" class="scrollitem selected grow no-underline br-pill ba bw1  pv2  dib near-black">Let's begin</a>
 
    </div>
   </div>
@@ -79,7 +79,7 @@
              <input type="time" name="fromWork" id="leave-work" placeholder="6:00 AM" class ="mt1" />
              <br>
            </div>
-             <div style="text-align:center;"><button id="next-button"><a href="#addressForm" class="scrollitem">Continue</a></button></div>
+             <div style="text-align:center;"><a id="next-button" class="scrollitem grow no-underline br-pill ba bw1  pv2  dib near-black" style="margin-top:2em" href="#addressForm">Continue</a></div>
            </div>
          </div>
          </div>
@@ -92,8 +92,8 @@
 
 <!-- Address Section -->
 <div class="page" id="addressForm" >
- <div class="fl w-100 pa2" style="padding-top:5%" >
-        <p id="instructions">Now, enter your starting point and destination
+ <div class="fl w-100" style="padding-top:2%" >
+        <p id="instructions">Now, enter your starting point and destination,
         <br>and select them from the dropdown menu:</p>
         <input id="home-input" class="controls" type="text" placeholder="Home address">
         <input id="work-input" class="controls" type="text" placeholder="Work address">
@@ -106,7 +106,7 @@
       <div id="map" align="center"></div>
       <div id="showMap"></div>
       </div>
-      <div style="text-align:center;">  <button id="next-button" style="margin-top:3rem"><a href="#results" class="scrollitem">Results</a></button></div>
+      <div style="text-align:center; margin-top:2em"> <a href="#results" id="next-button" class="scrollitem grow no-underline br-pill ba bw1  pv2  dib near-black">Results</a></div>
   </div>
 
 
@@ -118,22 +118,21 @@
   <div id="workInput"></div>
   <article class="cf" style="text-align:center; margin-left:10%; margin-right:10%;">
     <div class="fl w-100 w-50-ns" style="text-align:center" >
-      <img src='./car_logo.svg' alt="drive" class="clip-m" style ="margin: auto; height: 5rem; margin-left: 10%; margin-right: 15%"></img>
-      <div id="drivingInput" style="padding:5px; margin-right: 5%;font-size: 1.75rem;font-weight: 350;"></div>
-      <div id="drivingCost" style="padding:5px; margin-right: 5%;font-size: 1.75rem;font-weight: 350;"></div>
+      <div id="carLogo"></div>
+      <div id="drivingInput" style="padding:5px; margin-right: 5%; "></div>
+      <div id="drivingCost" style="padding:5px; margin-right: 5%;"></div>
     </div>
     <div class="fl w-100 w-50-ns" style="text-align:center">
-      <img src='./metro_logo.svg' alt="metro" class="clip-m" style ="margin: auto; height: 5rem; margin-left: 15%; margin-right: 10%"></img>
-      <div id="transitInput" style="padding-top:2px; padding:5px; margin-left: 5%;font-size: 1.75rem;font-weight: 350;"></div>
-      <div id="transitCost" style=" padding:5px; margin-left: 5%;font-size: 1.75rem;font-weight: 350;"></div>
-      <div id="walkingInput" style="font-size: 1.75rem;font-weight: 350;"></div>
+      <div id="metroLogo"></div>
+      <div id="transitInput" style="padding-top:2px; padding:5px; margin-left: 5%;"></div>
+      <div id="transitCost" style=" padding:5px; margin-left: 5%;"></div>
+      <div id="walkingInput" ></div>
     </div>
   </article>
   <div class=" dib w-100 pa4" style="text-align:center; padding-top: 3rem;">
   <div id="transitFee" style="font-size: 1rem;font-weight: 350;"></div>
-  <div id="theButton"><p class="f3" style="padding-top:10rem">Oops, looks like someone forgot their address 
-  <br>(hint: start typing and then choose it from the dropdown menu)...</p>
-    <button id="next-button"><a href="#addressForm" class="scrollitem">Back</a></button></div>
+  <div id="theButton"><p class="f3" style="padding-top:3em">Oops, looks like someone forgot their address...
+    <div style="text-align:center"><a href="#addressForm" id="next-button" class="scrollitem grow no-underline br-pill ba bw1  pv2  dib near-black">Back</a></div></div>
   </div>
 <div class="dib w-100" style="padding-top: 50px; text-align:center;">
 <!-- <div id="routesSection"></div> -->

@@ -152,9 +152,9 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 
     //set up values for display
     if (times.length == 2) {
-      var x = "<p id='instructions' style='margin-bottom:2rem; margin-top:5rem;'>Your Routine</p><p id='resText'> Home Address: <b>" + homeAddress.slice(0, -15) + "</b> at <b>" + times[0] + "</b></p>"
+      var x = "<p id='instructions' style='margin-bottom:2rem; margin-top:5rem;'>Your Routine</p><p id='resText'> Leave for work from <b>" + homeAddress.slice(0, -15) + "</b> at <b>" + times[0] + "</b></p>"
       theInput.push(x);
-      var y = "<p id='resText'>Work Address: <b>" + workAddress.slice(0, -15) + "</b> at <b>" + times[1] + "</b></p> <p id='instructions' style='margin-bottom:3rem; margin-top:7rem;'>Our Verdict</p>";
+      var y = "<p id='resText'>Return home from <b>" + workAddress.slice(0, -15) + "</b> at <b>" + times[1] + "</b></p> <p id='instructions' style='margin-bottom:3rem; margin-top:7rem;'>Our Verdict</p>";
       theInput.push(y);
     }
   }
@@ -321,11 +321,13 @@ AutocompleteDirectionsHandler.prototype.route = function() {
         ride = "TRANSIT: There are no public transit options for your chosen route.";
       }
       document.getElementById('resultSection').innerHTML = '<h1 class="f2 mt4">Commute Summary</h1>'
+      document.getElementById('carLogo').innerHTML = "<img src='./car_logo.svg' alt='drive' class='clip-m' style ='margin: auto; height: 5rem; margin-left: 10%; margin-right: 15%'></img>"
+      document.getElementById('metroLogo').innerHTML = "<img src='./metro_logo.svg' alt='metro' class='clip-m' style ='margin: auto; height: 5rem; margin-left: 15%; margin-right: 10%'></img>"
       document.getElementById('drivingInput').innerHTML = drive;
       document.getElementById('transitInput').innerHTML = ride;
       document.getElementById('drivingCost').innerHTML = "Annual Driving Cost: <b> $" + monetaryCost + "</b>"
       document.getElementById('homeInput').innerHTML = theInput[0] + "<br>" + theInput[1];
-      document.getElementById('theButton').innerHTML = '<button onClick="window.location.reload()"; id="next-button" style="text-align: center; display:inline-block"><a href="#begin">Start Over</a></button>'
+      document.getElementById('theButton').innerHTML = '<a onClick="window.location.reload()"; id="next-button"; class="scrollitem grow no-underline br-pill ba bw1  pv2  dib near-black" style="margin-top: 3em" href="#begin">Start Over</a>'
       }
 
     });

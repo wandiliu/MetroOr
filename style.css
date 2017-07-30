@@ -135,18 +135,17 @@ a:visited{
 
 #next-button{
   text-decoration: none;
-  margin-top: 2rem;
+  margin-top: 1em;
+  margin-bottom: 3em;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 275;
   color:#2F3541;
   border-color: #2F3541;
   background-color: transparent;
-  height: 50px;
+  height: 45px;
   width:200px;
   font-size: 1.25rem;
-  margin-bottom: 1rem;
   border-radius: 50px;
-  border-width: 2px;
 }
 
 #next-button:hover{
@@ -188,7 +187,7 @@ label {
 #homeInput,
 #workInput {
   font-weight: 350;
-  font-size:1.25rem;
+  font-size:1.75rem;
   color: #2F3541;
 }
 #transitCost,
@@ -309,6 +308,31 @@ label {
     .w-50-ns {
         width: 50%;
     }
+}
+
+@media only screen and (max-width: 320px) {
+
+  #resText{
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 250;
+  }
+  #drivingInput,
+  #transitInput,
+  #walkingInput,
+  #drivingCost,
+  #transitCost,
+  #homeInput,
+  #workInput {
+    font-weight: 250;
+    font-size:1rem;
+    color: #2F3541;
+  }
+  #transitCost,
+  #drivingCost {
+    margin-top: 10px;
+  }
+
 }
 
 /*
